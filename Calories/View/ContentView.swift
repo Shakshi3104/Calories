@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var energyModel = EnergyModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        CaloriesView(energy: energyModel.energy)
+            .task {
+                await energyModel.updateEnergy()
+            }
     }
 }
 
