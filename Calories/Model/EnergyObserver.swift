@@ -33,7 +33,7 @@ class EnergyObserver {
     }
     
     private func getStatistics(quantityType: HKQuantityType, completion: @escaping (Int) -> ()) {
-        let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        let startDate = Calendar.current.startOfDay(for: Date())
         let endDate = Date()
         
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
@@ -42,15 +42,13 @@ class EnergyObserver {
         let query = HKStatisticsCollectionQuery(quantityType: quantityType,
                                                 quantitySamplePredicate: predicate,
                                                 options: .cumulativeSum,
-                                                anchorDate: startDate!,
+                                                anchorDate: startDate,
                                                 intervalComponents: interval)
         query.initialResultsHandler = { query, collection, error in
             guard let statsCollection = collection else {
                 return
             }
-            guard let startDate = startDate else {
-                return
-            }
+            
             print("🍎")
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { stats, stop in
                 if let quantity = stats.sumQuantity() {
