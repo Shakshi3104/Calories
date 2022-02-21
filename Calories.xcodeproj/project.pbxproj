@@ -21,10 +21,15 @@
 		CE6E09BB27C32D73008D83B9 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */; };
 		CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BE27C33198008D83B9 /* Energy.swift */; };
 		CE6E09C127C34C0A008D83B9 /* EnergyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C027C34C0A008D83B9 /* EnergyObserver.swift */; };
+		CE6E09C427C3796E008D83B9 /* EnergyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C027C34C0A008D83B9 /* EnergyObserver.swift */; };
+		CE6E09C527C37D50008D83B9 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */; };
+		CE6E09C627C37F1D008D83B9 /* CaloriesEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */; };
+		CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BE27C33198008D83B9 /* Energy.swift */; };
+		CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CE6E09AE27C32A9D008D83B9 /* PBXContainerItemProxy */ = {
+		CE62D7BE27C38153004F5286 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE6E098527C32A77008D83B9 /* Project object */;
 			proxyType = 1;
@@ -65,6 +70,8 @@
 		CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
 		CE6E09BE27C33198008D83B9 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		CE6E09C027C34C0A008D83B9 /* EnergyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyObserver.swift; sourceTree = "<group>"; };
+		CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesEntry.swift; sourceTree = "<group>"; };
+		CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +153,8 @@
 				CE6E09A927C32A9C008D83B9 /* CaloriesWidget.swift */,
 				CE6E09AB27C32A9D008D83B9 /* Assets.xcassets */,
 				CE6E09AD27C32A9D008D83B9 /* Info.plist */,
+				CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */,
+				CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */,
 			);
 			path = CaloriesWidget;
 			sourceTree = "<group>";
@@ -183,7 +192,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CE6E09AF27C32A9D008D83B9 /* PBXTargetDependency */,
+				CE62D7BF27C38153004F5286 /* PBXTargetDependency */,
 			);
 			name = Calories;
 			productName = Calories;
@@ -281,17 +290,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */,
+				CE6E09C527C37D50008D83B9 /* CaloriesView.swift in Sources */,
 				CE6E09AA27C32A9C008D83B9 /* CaloriesWidget.swift in Sources */,
+				CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */,
+				CE6E09C627C37F1D008D83B9 /* CaloriesEntry.swift in Sources */,
+				CE6E09C427C3796E008D83B9 /* EnergyObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CE6E09AF27C32A9D008D83B9 /* PBXTargetDependency */ = {
+		CE62D7BF27C38153004F5286 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE6E09A127C32A9C008D83B9 /* CaloriesWidgetExtension */;
-			targetProxy = CE6E09AE27C32A9D008D83B9 /* PBXContainerItemProxy */;
+			targetProxy = CE62D7BE27C38153004F5286 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

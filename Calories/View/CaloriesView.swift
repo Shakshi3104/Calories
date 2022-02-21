@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - CalorieView
 struct CaloriesView: View {
     var energy: Energy
+    var textStyle: Font.TextStyle = .title3
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -23,25 +24,29 @@ struct CaloriesView: View {
             HStack(spacing: 10) {
                 CalorieView(energyName: "Resting",
                             energy: energy.resting,
-                            color: .heathcareOrange)
+                            color: .heathcareOrange,
+                            textStyle: textStyle)
                 
                 Divider()
                 
                 CalorieView(energyName: "Active",
                             energy: energy.active,
-                            color: .heathcareOrange)
+                            color: .heathcareOrange,
+                            textStyle: textStyle)
                 
                 Divider()
                 
                 CalorieView(energyName: "Dietary",
                             energy: energy.dietary,
-                            color: .heathcareGreen)
+                            color: .heathcareGreen,
+                            textStyle: textStyle)
                 
                 Divider()
                 
                 CalorieView(energyName: "Ingestible",
                             energy: energy.ingestible,
-                            color: .heathcareIrisPurple)
+                            color: .heathcareIrisPurple,
+                            textStyle: textStyle)
             }
             .frame(height: 70)
         }
@@ -53,6 +58,7 @@ struct CalorieView: View {
     var energyName: String
     var energy: Int
     var color: Color
+    var textStyle: Font.TextStyle = .title3
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -61,7 +67,7 @@ struct CalorieView: View {
                 .font(.caption)
             HStack(alignment: .bottom, spacing: 2) {
                 Text("\(energy)")
-                    .font(.system(.title3, design: .rounded).monospacedDigit())
+                    .font(.system(textStyle, design: .rounded).monospacedDigit())
                     .fontWeight(.medium)
                 Text("kcal")
                     .foregroundColor(.gray)

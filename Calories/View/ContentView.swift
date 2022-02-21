@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var energyModel = EnergyModel()
+    @ObservedObject var energyModel: EnergyModel = EnergyModel()
     
     var body: some View {
         CaloriesView(energy: energyModel.energy)
