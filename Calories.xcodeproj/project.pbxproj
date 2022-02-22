@@ -73,6 +73,7 @@
 		CE6E09C027C34C0A008D83B9 /* EnergyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyObserver.swift; sourceTree = "<group>"; };
 		CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesEntry.swift; sourceTree = "<group>"; };
 		CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		CE871DE427C486EB00BE4DCE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +102,7 @@
 		CE6E098427C32A77008D83B9 = {
 			isa = PBXGroup;
 			children = (
+				CE871DE427C486EB00BE4DCE /* README.md */,
 				CE6E09B527C32AB8008D83B9 /* CaloriesWidgetExtension.entitlements */,
 				CE6E098F27C32A77008D83B9 /* Calories */,
 				CE6E09A827C32A9C008D83B9 /* CaloriesWidget */,
