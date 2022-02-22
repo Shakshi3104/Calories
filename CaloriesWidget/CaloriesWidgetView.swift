@@ -26,7 +26,7 @@ struct CalorieWidgetMediumView: View {
                 Text("kcal")
                     .foregroundColor(.gray)
                     .font(.footnote)
-                    .padding(.bottom, 2)
+                    .padding(.bottom, 1)
             }
         }
     }
