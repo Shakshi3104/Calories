@@ -79,8 +79,8 @@ struct CaloriesWidgetMediumView: View {
                                         energy: energy.ingestible,
                                         color: .heathcareIrisPurple)
             }
+            .frame(height: 50)
         }
-        .frame(height: 90)
     }
 }
 
