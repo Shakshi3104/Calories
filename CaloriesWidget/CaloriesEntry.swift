@@ -23,7 +23,7 @@ struct CaloriesEntry: TimelineEntry {
 
 struct CaloriesTimeline: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (CaloriesEntry) -> Void) {
-        let entry = CaloriesEntry(resting: 0, active: 0, dietary: 0)
+        let entry = CaloriesEntry(resting: 1620, active: 130, dietary: 1850)
         completion(entry)
     }
     
