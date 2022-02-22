@@ -14,22 +14,6 @@ class EnergyObserver {
     
     init() {
         self.healthStore = HKHealthStore()
-        
-        // The quantity types to read from the health store
-        let typesToRead: Set = [
-            HKQuantityType(.activeEnergyBurned),
-            HKQuantityType(.dietaryEnergyConsumed),
-            HKQuantityType(.basalEnergyBurned)
-        ]
-        
-        // Request authorization
-        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { success, error in
-            if !success {
-                print("Not allow")
-            } else {
-                print("Success!")
-            }
-        }
     }
     
     private func getStatistics(quantityType: HKQuantityType, completion: @escaping (Int) -> ()) {
@@ -49,7 +33,6 @@ class EnergyObserver {
                 return
             }
             
-            print("🍎")
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { stats, stop in
                 if let quantity = stats.sumQuantity() {
                     let date = stats.startDate
@@ -113,6 +96,59 @@ class EnergyObserver {
             }
         })
     }
+    
+    // MARK: -
+    func getEnergy(completion: @escaping ((Int, Int, Int)) -> ()) {
+        self.getRestingEnergy { [self] resting in
+            self.getActiveEnergy { [self] active in
+                self.getDietaryEnergy { dietary in
+                    completion((resting, active, dietary))
+                }
+            }
+        }
+    }
+    
+    func getEnergyWithRequestingAuthorization(completion: @escaping ((Int, Int, Int)) -> ()) {
+        // The quantity types to read from the health store
+        let typesToRead: Set = [
+            HKQuantityType(.activeEnergyBurned),
+            HKQuantityType(.dietaryEnergyConsumed),
+            HKQuantityType(.basalEnergyBurned)
+        ]
+        
+        // Request authorization
+        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { success, error in
+            if !success {
+                print("Not allow")
+            } else {
+                print("Success!")
+                self.getEnergy(completion: completion)
+            }
+        }
+    }
+    
+    func getEnergyWithRequestStatus(completion: @escaping ((Int, Int, Int)) -> ()) {
+        // The quantity types to read from the health store
+        let typesToRead: Set = [
+            HKQuantityType(.activeEnergyBurned),
+            HKQuantityType(.dietaryEnergyConsumed),
+            HKQuantityType(.basalEnergyBurned)
+        ]
+        
+        healthStore.getRequestStatusForAuthorization(toShare: Set(), read: typesToRead) { success, error in
+            switch success {
+            case .shouldRequest:
+                print("Calories has not yet requested authorization.")
+            case .unnecessary:
+                print("Calories has already requested authorization.")
+                self.getEnergy(completion: completion)
+            case .unknown:
+                print("Unkown authorization request status")
+            @unknown default:
+                fatalError()
+            }
+        }
+    }
 }
 
 // MARK: - EnergyModel
@@ -130,6 +166,16 @@ class EnergyModel: ObservableObject {
         
         DispatchQueue.main.async {
             self.energy = Energy(resting: resting, active: active, dietary: dietary)
+        }
+    }
+    
+    func updateEnergy() {
+        energyObserver.getEnergyWithRequestingAuthorization { (resting, active, dietary) -> Void in
+            print("🍎 \(resting), \(active), \(dietary)")
+            
+            DispatchQueue.main.async {
+                self.energy = Energy(resting: resting, active: active, dietary: dietary)
+            }
         }
     }
 }
