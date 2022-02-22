@@ -150,11 +150,11 @@
 		CE6E09A827C32A9C008D83B9 /* CaloriesWidget */ = {
 			isa = PBXGroup;
 			children = (
+				CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */,
+				CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */,
 				CE6E09A927C32A9C008D83B9 /* CaloriesWidget.swift */,
 				CE6E09AB27C32A9D008D83B9 /* Assets.xcassets */,
 				CE6E09AD27C32A9D008D83B9 /* Info.plist */,
-				CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */,
-				CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */,
 			);
 			path = CaloriesWidget;
 			sourceTree = "<group>";
