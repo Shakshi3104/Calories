@@ -23,6 +23,7 @@ struct CalorieWidgetMediumView: View {
                 Text("\(energy)")
                     .font(.system(.body, design: .rounded).monospacedDigit())
                     .fontWeight(.medium)
+                    .privacySensitive()
                 Text("kcal")
                     .foregroundColor(.gray)
                     .font(.footnote)
@@ -100,6 +101,7 @@ struct CaloriesWidgetSmallView: View {
                     Text("\(energy.resting + energy.active)")
                         .font(.system(.body, design: .rounded).monospacedDigit())
                         .fontWeight(.medium)
+                        .privacySensitive()
                     Text("kcal")
                         .foregroundColor(.gray)
                         .font(.footnote)
@@ -117,6 +119,7 @@ struct CaloriesWidgetSmallView: View {
                     Text("\(energy.dietary)")
                         .font(.system(.body, design: .rounded).monospacedDigit())
                         .fontWeight(.medium)
+                        .privacySensitive()
                     Text("kcal")
                         .foregroundColor(.gray)
                         .font(.footnote)
@@ -134,6 +137,7 @@ struct CaloriesWidgetSmallView: View {
                     Text("\(energy.ingestible)")
                         .font(.system(.body, design: .rounded).monospacedDigit())
                         .fontWeight(.medium)
+                        .privacySensitive()
                     Text("kcal")
                         .foregroundColor(.gray)
                         .font(.footnote)
@@ -169,6 +173,7 @@ struct EnergySmallView: View {
                 .foregroundColor(color)
                 .font(.system(.title3, design: .rounded).monospacedDigit())
                 .fontWeight(.medium)
+                .privacySensitive()
             Text("KCAL")
                 .foregroundColor(color)
                 .font(.system(.body, design: .rounded))
@@ -188,12 +193,16 @@ struct CaloriesWidgetSmallBarChartView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    BarView(value: CGFloat(energy.resting + energy.active) * scale,
+                    let values = calcBarChartWidth(consumptionEnergy: energy.resting + energy.active,
+                                                   intakeEnergy: energy.dietary)
+                    
+                    BarView(value: values.comsumption,
                             color: .heathcareOrange)
                     
-                    BarView(value: CGFloat(energy.dietary) * scale,
+                    BarView(value: values.intake,
                             color: .heathcareGreen)
                 }
+                .privacySensitive()
                 Spacer()
             }
             .padding(.horizontal, 22)
@@ -208,6 +217,21 @@ struct CaloriesWidgetSmallBarChartView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
+        }
+    }
+    
+    private func calcBarChartWidth(consumptionEnergy: Int, intakeEnergy: Int) -> (comsumption: CGFloat, intake: CGFloat) {
+        let maxWidth = 90.0
+        
+        if CGFloat(consumptionEnergy) * scale < maxWidth &&
+            CGFloat(intakeEnergy) * scale < maxWidth {
+            return (CGFloat(consumptionEnergy) * scale, CGFloat(intakeEnergy) * scale)
+        }
+        
+        if consumptionEnergy < intakeEnergy {
+            return (maxWidth, CGFloat(intakeEnergy) / CGFloat(consumptionEnergy) * maxWidth)
+        } else {
+            return (CGFloat(consumptionEnergy) / CGFloat(intakeEnergy) * maxWidth, maxWidth)
         }
     }
 }
