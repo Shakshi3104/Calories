@@ -15,6 +15,8 @@ struct CaloriesWidgetEntryView : View {
 
     var body: some View {
         switch family {
+        case .systemSmall:
+            CaloriesWidgetSmallView(energy: entry.energy)
         case .systemMedium:
             CaloriesWidgetMediumView(energy: entry.energy)
         default:
@@ -33,15 +35,6 @@ struct CaloriesWidget: Widget {
         }
         .configurationDisplayName("Calories")
         .description("See your intake and consumption energy.")
-        .supportedFamilies([.systemMedium])
-    }
-}
-
-struct CaloriesWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        CaloriesWidgetEntryView(entry: CaloriesEntry(resting: 1500,
-                                                     active: 200,
-                                                     dietary: 1800))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
+        .supportedFamilies([.systemMedium, .systemSmall])
     }
 }

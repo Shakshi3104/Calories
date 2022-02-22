@@ -84,14 +84,77 @@ struct CaloriesWidgetMediumView: View {
     }
 }
 
+// MARK: - Small Widget
+struct CaloriesWidgetSmallView: View {
+    var energy: Energy
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            HStack {
+                Image(systemName: "flame.fill")
+                    .foregroundColor(.heathcareOrange)
+                
+                Spacer()
+                
+                HStack(alignment: .bottom, spacing: 5) {
+                    Text("\(energy.resting + energy.active)")
+                        .font(.system(.body, design: .rounded).monospacedDigit())
+                        .fontWeight(.medium)
+                    Text("kcal")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                        .padding(.bottom, 1)
+                }
+            }
+            
+            HStack {
+                Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                    .foregroundColor(.heathcareGreen)
+                
+                Spacer()
+                
+                HStack(alignment: .bottom, spacing: 5) {
+                    Text("\(energy.dietary)")
+                        .font(.system(.body, design: .rounded).monospacedDigit())
+                        .fontWeight(.medium)
+                    Text("kcal")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                        .padding(.bottom, 1)
+                }
+            }
+            
+            HStack {
+                Image(systemName: "fork.knife")
+                    .foregroundColor(.heathcareIrisPurple)
+                
+                Spacer()
+                
+                HStack(alignment: .bottom, spacing: 5) {
+                    Text("\(energy.ingestible)")
+                        .font(.system(.body, design: .rounded).monospacedDigit())
+                        .fontWeight(.medium)
+                    Text("kcal")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                        .padding(.bottom, 1)
+                }
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+}
+
 // MARK: - Previews
 struct CaloriesWidgetView_Previews: PreviewProvider {
+    static var energy = Energy(resting: 1500, active: 200, dietary: 2100)
+    
     static var previews: some View {
         Group {
-            CaloriesWidgetMediumView(energy: Energy(resting: 1500, active: 200, dietary: 2100))
+            CaloriesWidgetMediumView(energy: energy)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
-//            CaloriesWidgetMediumView(energy: Energy(resting: 0, active: 0, dietary: 0))
-//                .previewContext(WidgetPreviewContext(family: .systemSmall))
+            CaloriesWidgetSmallView(energy: energy)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
         }
     }
 }
