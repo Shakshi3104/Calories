@@ -145,6 +145,73 @@ struct CaloriesWidgetSmallView: View {
     }
 }
 
+// MARK: - Small Widget (Bar chart)
+struct BarView: View {
+    var value: CGFloat
+    var color: Color = Color(.sRGB, red: 0.2, green: 0.5, blue: 0.8)
+    
+    var body: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: value, height: 15)
+                .foregroundColor(color)
+        }
+    }
+}
+
+struct EnergySmallView: View {
+    var value: Int
+    var color: Color
+    
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 1) {
+            Text("\(value)")
+                .foregroundColor(color)
+                .font(.system(.title3, design: .rounded).monospacedDigit())
+                .fontWeight(.medium)
+            Text("KCAL")
+                .foregroundColor(color)
+                .font(.system(.body, design: .rounded))
+                .fontWeight(.medium)
+                .padding(.bottom, 1)
+                
+        }
+    }
+}
+
+struct CaloriesWidgetSmallBarChartView: View {
+    var energy: Energy
+    
+    let scale: CGFloat = 1.0 / 20.0
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    BarView(value: CGFloat(energy.resting + energy.active) * scale,
+                            color: .heathcareOrange)
+                    
+                    BarView(value: CGFloat(energy.dietary) * scale,
+                            color: .heathcareGreen)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 22)
+            .padding(.vertical, 5)
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 1) {
+                    EnergySmallView(value: energy.resting + energy.active, color: .heathcareOrange)
+                    EnergySmallView(value: energy.dietary, color: .heathcareGreen)
+                    EnergySmallView(value: energy.ingestible, color: .heathcareIrisPurple)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+}
+
 // MARK: - Previews
 struct CaloriesWidgetView_Previews: PreviewProvider {
     static var energy = Energy(resting: 1500, active: 200, dietary: 2100)
@@ -154,6 +221,8 @@ struct CaloriesWidgetView_Previews: PreviewProvider {
             CaloriesWidgetMediumView(energy: energy)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
             CaloriesWidgetSmallView(energy: energy)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+            CaloriesWidgetSmallBarChartView(energy: energy)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
         }
     }
