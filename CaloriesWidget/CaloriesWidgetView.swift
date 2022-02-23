@@ -163,6 +163,55 @@ struct BarView: View {
     }
 }
 
+struct EnergyBarChartView: View {
+    var energy: Energy
+    
+    let scale: CGFloat = 1.0 / 20.0
+    let maxWidth = 90.0
+    
+    @Environment(\.redactionReasons) var redactionReasons
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 5) {
+                if redactionReasons.contains(.privacy) {
+                    // hide bar charts
+                    BarView(value: maxWidth, color: .heathcareOrange.opacity(0.2))
+                    BarView(value: maxWidth, color: .heathcareGreen.opacity(0.2))
+                } else {
+                    let values = calcBarChartWidth(
+                        consumptionEnergy: energy.resting + energy.active,
+                        intakeEnergy: energy.dietary
+                    )
+                    
+                    BarView(value: values.comsumption,
+                            color: .heathcareOrange)
+                    
+                    BarView(value: values.intake,
+                            color: .heathcareGreen)
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 22)
+        .padding(.vertical, 5)
+    }
+    
+    private func calcBarChartWidth(consumptionEnergy: Int, intakeEnergy: Int) -> (comsumption: CGFloat, intake: CGFloat) {
+        
+        if CGFloat(consumptionEnergy) * scale < maxWidth &&
+            CGFloat(intakeEnergy) * scale < maxWidth {
+            return (CGFloat(consumptionEnergy) * scale, CGFloat(intakeEnergy) * scale)
+        }
+        
+        if consumptionEnergy < intakeEnergy {
+            return (maxWidth, CGFloat(intakeEnergy) / CGFloat(consumptionEnergy) * maxWidth)
+        } else {
+            return (CGFloat(consumptionEnergy) / CGFloat(intakeEnergy) * maxWidth, maxWidth)
+        }
+    }
+}
+
 struct EnergySmallView: View {
     var value: Int
     var color: Color
@@ -187,26 +236,9 @@ struct EnergySmallView: View {
 struct CaloriesWidgetSmallBarChartView: View {
     var energy: Energy
     
-    let scale: CGFloat = 1.0 / 20.0
-    
     var body: some View {
         VStack {
-            HStack {
-                VStack(alignment: .leading, spacing: 5) {
-                    let values = calcBarChartWidth(consumptionEnergy: energy.resting + energy.active,
-                                                   intakeEnergy: energy.dietary)
-                    
-                    BarView(value: values.comsumption,
-                            color: .heathcareOrange)
-                    
-                    BarView(value: values.intake,
-                            color: .heathcareGreen)
-                }
-                .privacySensitive()
-                Spacer()
-            }
-            .padding(.horizontal, 22)
-            .padding(.vertical, 5)
+            EnergyBarChartView(energy: energy)
             
             HStack {
                 VStack(alignment: .leading, spacing: 1) {
@@ -217,21 +249,6 @@ struct CaloriesWidgetSmallBarChartView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
-        }
-    }
-    
-    private func calcBarChartWidth(consumptionEnergy: Int, intakeEnergy: Int) -> (comsumption: CGFloat, intake: CGFloat) {
-        let maxWidth = 90.0
-        
-        if CGFloat(consumptionEnergy) * scale < maxWidth &&
-            CGFloat(intakeEnergy) * scale < maxWidth {
-            return (CGFloat(consumptionEnergy) * scale, CGFloat(intakeEnergy) * scale)
-        }
-        
-        if consumptionEnergy < intakeEnergy {
-            return (maxWidth, CGFloat(intakeEnergy) / CGFloat(consumptionEnergy) * maxWidth)
-        } else {
-            return (CGFloat(consumptionEnergy) / CGFloat(intakeEnergy) * maxWidth, maxWidth)
         }
     }
 }
