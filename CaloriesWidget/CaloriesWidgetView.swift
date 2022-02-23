@@ -204,7 +204,7 @@ struct EnergyBarChartView: View {
             return (CGFloat(consumptionEnergy) * scale, CGFloat(intakeEnergy) * scale)
         }
         
-        if consumptionEnergy < intakeEnergy {
+        if consumptionEnergy > intakeEnergy {
             return (maxWidth, CGFloat(intakeEnergy) / CGFloat(consumptionEnergy) * maxWidth)
         } else {
             return (CGFloat(consumptionEnergy) / CGFloat(intakeEnergy) * maxWidth, maxWidth)
@@ -255,7 +255,7 @@ struct CaloriesWidgetSmallBarChartView: View {
 
 // MARK: - Previews
 struct CaloriesWidgetView_Previews: PreviewProvider {
-    static var energy = Energy(resting: 1500, active: 200, dietary: 2100)
+    static var energy = Energy(resting: 1500, active: 200, dietary: 4000)
     
     static var previews: some View {
         Group {
