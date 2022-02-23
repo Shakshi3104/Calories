@@ -248,7 +248,7 @@ struct CaloriesWidgetSmallBarChartView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 20)
+            .padding(.leading, 20)
         }
     }
 }
