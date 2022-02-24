@@ -13,43 +13,49 @@ struct CaloriesView: View {
     var textStyle: Font.TextStyle = .title3
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            HStack(spacing: 5) {
+
+        HStack(spacing: 10) {
+            VStack(spacing: 5) {
                 Image(systemName: "flame.fill")
                     .foregroundColor(.heathcareOrange)
-                Text("Energy")
-                    .foregroundColor(.heathcareOrange)
+                
+                HStack(spacing: 10) {
+                    CalorieView(energyName: "Resting",
+                                energy: energy.resting,
+                                color: .heathcareOrange,
+                                textStyle: textStyle)
+                    
+                    Divider()
+                    
+                    CalorieView(energyName: "Active",
+                                energy: energy.active,
+                                color: .heathcareOrange,
+                                textStyle: textStyle)
+                }
+            }
+            Divider()
+            
+            VStack(spacing: 5) {
+                Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                    .foregroundColor(.heathcareGreen)
+            CalorieView(energyName: "Dietary",
+                        energy: energy.dietary,
+                        color: .heathcareGreen,
+                        textStyle: textStyle)
             }
             
-            HStack(spacing: 10) {
-                CalorieView(energyName: "Resting",
-                            energy: energy.resting,
-                            color: .heathcareOrange,
-                            textStyle: textStyle)
-                
-                Divider()
-                
-                CalorieView(energyName: "Active",
-                            energy: energy.active,
-                            color: .heathcareOrange,
-                            textStyle: textStyle)
-                
-                Divider()
-                
-                CalorieView(energyName: "Dietary",
-                            energy: energy.dietary,
-                            color: .heathcareGreen,
-                            textStyle: textStyle)
-                
-                Divider()
-                
+            Divider()
+            
+            VStack(spacing: 5) {
+                Image(systemName: "fork.knife")
+                    .foregroundColor(.heathcareIrisPurple)
                 CalorieView(energyName: "Ingestible",
                             energy: energy.ingestible,
                             color: .heathcareIrisPurple,
                             textStyle: textStyle)
             }
-            .frame(height: 70)
         }
+        .frame(height: 70)
     }
 }
 
