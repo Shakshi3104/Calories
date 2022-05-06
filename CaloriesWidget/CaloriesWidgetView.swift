@@ -34,6 +34,8 @@ struct CalorieWidgetMediumView: View {
 }
 
 struct CaloriesWidgetMediumView: View {
+    @Environment(\.redactionReasons) var redactionReasons
+    
     var energy: Energy
     
     var body: some View {
@@ -48,12 +50,15 @@ struct CaloriesWidgetMediumView: View {
                     .font(.title2)
                 
                 Spacer().frame(width: 190)
-                if energy.ingestible >= 0 {
-                    Image(systemName: "flame.fill")
-                        .foregroundColor(.red)
-                } else {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
+                
+                if !redactionReasons.contains(.privacy) {
+                    if energy.ingestible >= 0 {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.red)
+                    } else {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                    }
                 }
             }
                 
