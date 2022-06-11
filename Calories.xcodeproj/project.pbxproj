@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE4F92262854AB6D007187E7 /* CaloriesRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92252854AB6D007187E7 /* CaloriesRingView.swift */; };
+		CE4F92282854B299007187E7 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92272854B299007187E7 /* Nutrition.swift */; };
+		CE4F92292854B299007187E7 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92272854B299007187E7 /* Nutrition.swift */; };
 		CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E099027C32A77008D83B9 /* CaloriesApp.swift */; };
 		CE6E099327C32A77008D83B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E099227C32A77008D83B9 /* ContentView.swift */; };
 		CE6E099527C32A77008D83B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6E099427C32A77008D83B9 /* Assets.xcassets */; };
@@ -54,6 +57,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE4F92252854AB6D007187E7 /* CaloriesRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesRingView.swift; sourceTree = "<group>"; };
+		CE4F92272854B299007187E7 /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
 		CE68AD0C27C5C18800048740 /* screenshots.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots.PNG; sourceTree = "<group>"; };
 		CE6E098D27C32A77008D83B9 /* Calories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6E099027C32A77008D83B9 /* CaloriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesApp.swift; sourceTree = "<group>"; };
@@ -179,6 +184,7 @@
 				CE6E099227C32A77008D83B9 /* ContentView.swift */,
 				CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */,
 				CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */,
+				CE4F92252854AB6D007187E7 /* CaloriesRingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,6 +194,7 @@
 			children = (
 				CE6E09BE27C33198008D83B9 /* Energy.swift */,
 				CE6E09C027C34C0A008D83B9 /* EnergyObserver.swift */,
+				CE4F92272854B299007187E7 /* Nutrition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -298,6 +305,8 @@
 				CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */,
 				CE6E09C127C34C0A008D83B9 /* EnergyObserver.swift in Sources */,
 				CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */,
+				CE4F92262854AB6D007187E7 /* CaloriesRingView.swift in Sources */,
+				CE4F92282854B299007187E7 /* Nutrition.swift in Sources */,
 				CE6E09BB27C32D73008D83B9 /* CaloriesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +317,7 @@
 			files = (
 				CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */,
 				CE82CE3D27C47BC7001208D1 /* Color+Extension.swift in Sources */,
+				CE4F92292854B299007187E7 /* Nutrition.swift in Sources */,
 				CE6E09AA27C32A9C008D83B9 /* CaloriesWidget.swift in Sources */,
 				CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */,
 				CE6E09C627C37F1D008D83B9 /* CaloriesEntry.swift in Sources */,
