@@ -55,11 +55,3 @@ struct RingView: View {
         }
     }
 }
-
-//struct CaloriesRingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CaloriesRingView(energy: Energy(resting: 1500,
-//                                        active: 200,
-//                                        dietary: 1600))
-//    }
-//}

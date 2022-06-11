@@ -9,30 +9,6 @@ import SwiftUI
 import WidgetKit
 
 // MARK: - Medium Widget
-struct CalorieWidgetMediumView: View {
-    var energyName: String
-    var energy: Int
-    var color: Color
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(energyName)
-                .foregroundColor(color)
-                .font(.caption)
-            HStack(alignment: .bottom, spacing: 2) {
-                Text("\(energy)")
-                    .font(.system(.body, design: .rounded).monospacedDigit())
-                    .fontWeight(.medium)
-                    .privacySensitive()
-                Text("kcal")
-                    .foregroundColor(.gray)
-                    .font(.footnote)
-                    .padding(.bottom, 1)
-            }
-        }
-    }
-}
-
 struct CaloriesWidgetMediumView: View {
     @Environment(\.redactionReasons) var redactionReasons
     
