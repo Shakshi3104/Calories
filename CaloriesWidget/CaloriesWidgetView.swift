@@ -39,19 +39,14 @@ struct CaloriesWidgetMediumView: View {
     var energy: Energy
     
     var body: some View {
-        VStack(alignment: .center, spacing: 15) {
-            
-            HStack(spacing: 5) {
-                Image(systemName: "flame.fill")
-                    .foregroundColor(.heathcareOrange)
-                    .font(.title2)
-                Text("Energy")
-                    .foregroundColor(.heathcareOrange)
-                    .font(.title2)
+        HStack {
+            ZStack {
+                RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
+                         startColor: .heathcareLightGreen,
+                         endColor: .heathcareGreen)
+                .scaleEffect(0.8)
                 
-                Spacer().frame(width: 190)
-                
-                if !redactionReasons.contains(.privacy) {
+                VStack(spacing: 7) {
                     if energy.ingestible >= 0 {
                         Image(systemName: "flame.fill")
                             .foregroundColor(.red)
@@ -60,32 +55,17 @@ struct CaloriesWidgetMediumView: View {
                             .foregroundColor(.yellow)
                     }
                 }
+                .scaleEffect(1.5)
             }
-                
-            HStack(spacing: 5) {
-                CalorieWidgetMediumView(energyName: "Resting",
-                                        energy: energy.resting,
-                                        color: .heathcareOrange)
-                
-                Divider()
-                
-                CalorieWidgetMediumView(energyName: "Active",
-                                        energy: energy.active,
-                                        color: .heathcareOrange)
-                
-                Divider()
-                
-                CalorieWidgetMediumView(energyName: "Dietary",
-                                        energy: energy.dietary,
-                                        color: .heathcareGreen)
-                
-                Divider()
-                
-                CalorieWidgetMediumView(energyName: "Ingestible",
-                                        energy: energy.ingestible,
-                                        color: .heathcareIrisPurple)
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
+                    EnergySmallView(value: energy.resting + energy.active, color: .heathcareOrange)
+                    EnergySmallView(value: energy.dietary, color: .heathcareGreen)
+                    EnergySmallView(value: energy.ingestible, color: .heathcareIrisPurple)
+                }
             }
-            .frame(height: 50)
+            .padding(.leading, 20)
         }
     }
 }
@@ -95,50 +75,25 @@ struct CaloriesWidgetSmallView: View {
     var energy: Energy
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                Image(systemName: "flame.fill")
-                    .foregroundColor(.heathcareOrange)
-                
-                Spacer()
-                
-                HStack(alignment: .bottom, spacing: 5) {
-                    Text("\(energy.resting + energy.active)")
-                        .font(.system(.body, design: .rounded).monospacedDigit())
-                        .fontWeight(.medium)
-                        .privacySensitive()
-                    Text("kcal")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                        .padding(.bottom, 1)
-                }
-            }
+        ZStack {
+            RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
+                     startColor: .heathcareLightGreen,
+                     endColor: .heathcareGreen)
+            .scaleEffect(0.9)
             
-            HStack {
-                Image(systemName: "takeoutbag.and.cup.and.straw.fill")
-                    .foregroundColor(.heathcareGreen)
-                
-                Spacer()
-                
-                HStack(alignment: .bottom, spacing: 5) {
-                    Text("\(energy.dietary)")
-                        .font(.system(.body, design: .rounded).monospacedDigit())
-                        .fontWeight(.medium)
-                        .privacySensitive()
-                    Text("kcal")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                        .padding(.bottom, 1)
+            VStack(spacing: 10) {
+                VStack {
+                    if energy.ingestible >= 0 {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.red)
+                    } else {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                    }
                 }
-            }
-            
-            HStack {
-                Image(systemName: "fork.knife")
-                    .foregroundColor(.heathcareIrisPurple)
+                .scaleEffect(1.5)
                 
-                Spacer()
-                
-                HStack(alignment: .bottom, spacing: 5) {
+                HStack(alignment: .bottom, spacing: 1) {
                     Text("\(energy.ingestible)")
                         .font(.system(.body, design: .rounded).monospacedDigit())
                         .fontWeight(.medium)
@@ -148,9 +103,9 @@ struct CaloriesWidgetSmallView: View {
                         .font(.footnote)
                         .padding(.bottom, 1)
                 }
+                .scaleEffect(0.9)
             }
         }
-        .padding(.horizontal, 20)
     }
 }
 

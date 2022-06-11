@@ -10,6 +10,7 @@
 		CE4F92262854AB6D007187E7 /* CaloriesRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92252854AB6D007187E7 /* CaloriesRingView.swift */; };
 		CE4F92282854B299007187E7 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92272854B299007187E7 /* Nutrition.swift */; };
 		CE4F92292854B299007187E7 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92272854B299007187E7 /* Nutrition.swift */; };
+		CE4F922A2854BD7B007187E7 /* CaloriesRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92252854AB6D007187E7 /* CaloriesRingView.swift */; };
 		CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E099027C32A77008D83B9 /* CaloriesApp.swift */; };
 		CE6E099327C32A77008D83B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E099227C32A77008D83B9 /* ContentView.swift */; };
 		CE6E099527C32A77008D83B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6E099427C32A77008D83B9 /* Assets.xcassets */; };
@@ -321,6 +322,7 @@
 				CE6E09AA27C32A9C008D83B9 /* CaloriesWidget.swift in Sources */,
 				CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */,
 				CE6E09C627C37F1D008D83B9 /* CaloriesEntry.swift in Sources */,
+				CE4F922A2854BD7B007187E7 /* CaloriesRingView.swift in Sources */,
 				CE6E09C427C3796E008D83B9 /* EnergyObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

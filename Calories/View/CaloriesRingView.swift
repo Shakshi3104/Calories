@@ -7,39 +7,6 @@
 
 import SwiftUI
 
-struct CaloriesRingView: View {
-    var energy: Energy
-    
-    var body: some View {
-        ZStack {
-            RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                     startColor: .heathcareLightGreen,
-                     endColor: .heathcareGreen)
-            
-            VStack(spacing: 7) {
-                if energy.ingestible >= 0 {
-                    Image(systemName: "flame.fill")
-                        .foregroundColor(.red)
-                } else {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
-                }
-            
-                HStack(alignment: .bottom, spacing: 2) {
-                    Text("\(energy.ingestible)")
-                        .font(.system(.title3, design: .rounded).monospacedDigit())
-                        .fontWeight(.medium)
-                    Text("kcal")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                        .padding(.bottom, 2)
-                }
-            }
-        }
-    }
-}
-
-// MARK: -
 struct RingView: View {
     var value: Float
     var startColor: Color
@@ -89,10 +56,10 @@ struct RingView: View {
     }
 }
 
-struct CaloriesRingView_Previews: PreviewProvider {
-    static var previews: some View {
-        CaloriesRingView(energy: Energy(resting: 1500,
-                                        active: 200,
-                                        dietary: 1600))
-    }
-}
+//struct CaloriesRingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CaloriesRingView(energy: Energy(resting: 1500,
+//                                        active: 200,
+//                                        dietary: 1600))
+//    }
+//}
