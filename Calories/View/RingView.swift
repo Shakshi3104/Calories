@@ -14,7 +14,11 @@ struct RingView: View {
     
     var lineWidth = 15.0
     
+    var systemImageName: String? = nil
+    
     @State private var isShowed = false
+    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -40,7 +44,7 @@ struct RingView: View {
             // Start point
             Circle()
                 .frame(width: lineWidth, height: lineWidth)
-                .foregroundColor(value > 0.95 ? startColor.opacity(0) : startColor)
+                .foregroundColor(value < 0.01 ? endColor : endColor.opacity(0))
                 .offset(y: -60)
             
             // End point
@@ -50,6 +54,15 @@ struct RingView: View {
                 .foregroundColor(value > 0.95 ? endColor : endColor.opacity(0))
                 .rotationEffect(Angle(degrees: 360 * Double(value)))
                 .animation(.linear, value: isShowed)
+            
+            if let systemImageName = systemImageName {
+                Image(systemName: systemImageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: lineWidth * 0.7, height: lineWidth * 0.7)
+                    .offset(y: -60)
+                    .foregroundColor(colorScheme == .dark ? .black : .white)
+            }
         }
         .frame(width: 120, height: 120, alignment: .center)
         .onAppear {

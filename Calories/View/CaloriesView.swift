@@ -16,7 +16,11 @@ struct CaloriesView: View {
         NavigationView {
             List {
                 Section("Calorie") {
-                    CalorieTopView(energy: energy)
+                    NavigationLink {
+                        CalorieDetailView(energy: energy)
+                    } label: {
+                        CalorieTopView(energy: energy)
+                    }
                 }
                 
                 Section("Nutrition") {
@@ -35,7 +39,7 @@ struct CalorieTopView: View {
     private let textStyle: Font.TextStyle = .body
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 25) {
             RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
                      startColor: .intakeEnergyLightGreen,
                      endColor: .intakeEnergyGreen,
@@ -45,7 +49,7 @@ struct CalorieTopView: View {
             
             
             VStack(alignment: .leading, spacing: 10) {
-                HStack(spacing: 10) {
+                HStack(spacing: 15) {
                     CalorieView(energyName: "Resting",
                                 energy: energy.resting,
                                 color: .consumptionEnergyOrange,
@@ -57,23 +61,26 @@ struct CalorieTopView: View {
                                 energy: energy.active,
                                 color: .consumptionEnergyOrange,
                                 textStyle: textStyle)
-                    
-                    Divider()
-                    
+                }
+                .padding(.horizontal, 0)
+                
+                HStack(spacing: 15) {
                     CalorieView(energyName: "Dietary",
                                 energy: energy.dietary,
                                 color: .intakeEnergyGreen,
                                 textStyle: textStyle)
+                    
+                    Divider()
+                    
+                    CalorieView(energyName: "Ingestible",
+                                energy: energy.ingestible,
+                                color: .irisPurple,
+                                textStyle: .body)
                 }
                 .padding(.horizontal, 0)
-                
-                CalorieView(energyName: "Ingestible",
-                            energy: energy.ingestible,
-                            color: .irisPurple,
-                            textStyle: .body)
-            }
         }
         .padding(.vertical, 15)
+    }
     }
 }
 
@@ -85,7 +92,7 @@ struct NutritionTopView: View {
     private let textStyle: Font.TextStyle = .body
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 25) {
             ZStack {
                 RingView(value: Float(basicNutrition.protein) / Float(basicNutritionGoal.protein),
                          startColor: .proteinLightOrange,
