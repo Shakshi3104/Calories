@@ -18,8 +18,8 @@ struct CaloriesWidgetMediumView: View {
         HStack {
             ZStack {
                 RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                         startColor: .heathcareLightGreen,
-                         endColor: .heathcareGreen)
+                         startColor: .intakeEnergyGreen,
+                         endColor: .intakeEnergyLightGreen)
                 .scaleEffect(0.8)
                 
                 VStack(spacing: 7) {
@@ -36,9 +36,9 @@ struct CaloriesWidgetMediumView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
-                    EnergySmallView(value: energy.resting + energy.active, color: .heathcareOrange)
-                    EnergySmallView(value: energy.dietary, color: .heathcareGreen)
-                    EnergySmallView(value: energy.ingestible, color: .heathcareIrisPurple)
+                    EnergySmallView(value: energy.resting + energy.active, color: .consumptionEnergyOrange)
+                    EnergySmallView(value: energy.dietary, color: .intakeEnergyGreen)
+                    EnergySmallView(value: energy.ingestible, color: .irisPurple)
                 }
             }
             .padding(.leading, 20)
@@ -53,8 +53,8 @@ struct CaloriesWidgetSmallView: View {
     var body: some View {
         ZStack {
             RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                     startColor: .heathcareLightGreen,
-                     endColor: .heathcareGreen)
+                     startColor: .intakeEnergyGreen,
+                     endColor: .intakeEnergyLightGreen)
             .scaleEffect(0.9)
             
             VStack(spacing: 10) {
@@ -112,8 +112,8 @@ struct EnergyBarChartView: View {
             VStack(alignment: .leading, spacing: 5) {
                 if redactionReasons.contains(.privacy) {
                     // hide bar charts
-                    BarView(value: maxWidth, color: .heathcareOrange.opacity(0.2))
-                    BarView(value: maxWidth, color: .heathcareGreen.opacity(0.2))
+                    BarView(value: maxWidth, color: .consumptionEnergyOrange.opacity(0.2))
+                    BarView(value: maxWidth, color: .intakeEnergyGreen.opacity(0.2))
                 } else {
                     let values = calcBarChartWidth(
                         consumptionEnergy: energy.resting + energy.active,
@@ -121,10 +121,10 @@ struct EnergyBarChartView: View {
                     )
                     
                     BarView(value: values.comsumption,
-                            color: .heathcareOrange)
+                            color: .consumptionEnergyOrange)
                     
                     BarView(value: values.intake,
-                            color: .heathcareGreen)
+                            color: .intakeEnergyGreen)
                 }
             }
             Spacer()
@@ -178,9 +178,9 @@ struct CaloriesWidgetSmallBarChartView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 1) {
-                    EnergySmallView(value: energy.resting + energy.active, color: .heathcareOrange)
-                    EnergySmallView(value: energy.dietary, color: .heathcareGreen)
-                    EnergySmallView(value: energy.ingestible, color: .heathcareIrisPurple)
+                    EnergySmallView(value: energy.resting + energy.active, color: .consumptionEnergyOrange)
+                    EnergySmallView(value: energy.dietary, color: .intakeEnergyGreen)
+                    EnergySmallView(value: energy.ingestible, color: .irisPurple)
                 }
                 Spacer()
             }

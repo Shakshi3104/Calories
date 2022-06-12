@@ -12,13 +12,15 @@ struct RingView: View {
     var startColor: Color
     var endColor: Color
     
+    var lineWidth = 15.0
+    
     @State private var isShowed = false
     
     var body: some View {
         ZStack {
             // background
             Circle()
-                .stroke(lineWidth: 15.0)
+                .stroke(lineWidth: lineWidth)
                 .opacity(0.3)
                 .foregroundColor(startColor.opacity(0.3))
             
@@ -30,20 +32,20 @@ struct RingView: View {
                     center: .center,
                     startAngle: .degrees(0),
                     endAngle: .degrees(360 * Double(value))),
-                        style: StrokeStyle(lineWidth: 15.0, lineCap: .round, lineJoin: .round)
+                        style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round)
                 )
                 .rotationEffect(Angle(degrees: 270.0))
                 .animation(.linear, value: isShowed)
             
             // Start point
             Circle()
-                .frame(width: 15.0, height: 15.0)
+                .frame(width: lineWidth, height: lineWidth)
                 .foregroundColor(value > 0.95 ? startColor.opacity(0) : startColor)
                 .offset(y: -60)
             
             // End point
             Circle()
-                .frame(width: 15.0, height: 15.0)
+                .frame(width: lineWidth, height: lineWidth)
                 .offset(y: -60)
                 .foregroundColor(value > 0.95 ? endColor : endColor.opacity(0))
                 .rotationEffect(Angle(degrees: 360 * Double(value)))
