@@ -13,6 +13,7 @@ struct RingView: View {
     var endColor: Color
     
     var lineWidth = 15.0
+    var size: CGFloat = 120
     
     var systemImageName: String? = nil
     
@@ -26,7 +27,7 @@ struct RingView: View {
             Circle()
                 .stroke(lineWidth: lineWidth)
                 .opacity(0.3)
-                .foregroundColor(startColor.opacity(0.3))
+                .foregroundColor(startColor)
             
             // value
             Circle()
@@ -45,12 +46,12 @@ struct RingView: View {
             Circle()
                 .frame(width: lineWidth, height: lineWidth)
                 .foregroundColor(value < 0.01 ? endColor : endColor.opacity(0))
-                .offset(y: -60)
+                .offset(y: -size / 2.0)
             
             // End point
             Circle()
                 .frame(width: lineWidth, height: lineWidth)
-                .offset(y: -60)
+                .offset(y: -size / 2.0)
                 .foregroundColor(value > 0.95 ? endColor : endColor.opacity(0))
                 .rotationEffect(Angle(degrees: 360 * Double(value)))
                 .animation(.linear, value: isShowed)
@@ -59,12 +60,12 @@ struct RingView: View {
                 Image(systemName: systemImageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: lineWidth * 0.7, height: lineWidth * 0.7)
-                    .offset(y: -60)
+                    .frame(width: lineWidth * 0.6, height: lineWidth * 0.6)
+                    .offset(y: -size / 2.0)
                     .foregroundColor(colorScheme == .dark ? .black : .white)
             }
         }
-        .frame(width: 120, height: 120, alignment: .center)
+        .frame(width: size, height: size, alignment: .center)
         .onAppear {
             isShowed.toggle()
         }

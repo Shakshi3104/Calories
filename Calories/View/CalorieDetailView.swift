@@ -16,9 +16,9 @@ struct CalorieDetailView: View {
                 RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
                          startColor: .intakeEnergyGreen,
                          endColor: .intakeEnergyLightGreen,
-                         lineWidth: 20,
-                systemImageName: "takeoutbag.and.cup.and.straw")
-                .scaleEffect(1.5)
+                         lineWidth: 30,
+                         size: 250,
+                         systemImageName: "takeoutbag.and.cup.and.straw")
                 .frame(width: 300, height: 300)
                 
                 VStack(alignment: .leading, spacing: 20) {

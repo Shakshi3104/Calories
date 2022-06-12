@@ -24,7 +24,11 @@ struct CaloriesView: View {
                 }
                 
                 Section("Nutrition") {
-                    NutritionTopView(basicNutrition: basicNutrition)
+                    NavigationLink {
+                        NutritionDetailView(basicNutrition: basicNutrition)
+                    } label: {
+                        NutritionTopView(basicNutrition: basicNutrition)
+                    }
                 }
             }
             .navigationTitle("Calories")
@@ -46,7 +50,6 @@ struct CalorieTopView: View {
                      lineWidth: 20)
             .scaleEffect(0.3)
             .frame(width: 45, height: 45)
-            
             
             VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 15) {
