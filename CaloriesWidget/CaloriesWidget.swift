@@ -17,11 +17,11 @@ struct CaloriesWidgetEntryView : View {
     var body: some View {
         switch family {
         case .systemSmall:
-            CaloriesWidgetSmallView(energy: entry.energy)
+            CaloriesWidgetSmallView(energy: entry.energy, basicNutrition: entry.basicNutrition)
         case .systemMedium:
-            CaloriesWidgetMediumView(energy: entry.energy)
+            CaloriesWidgetMediumView(energy: entry.energy, basicNutrition: entry.basicNutrition)
         default:
-            CaloriesWidgetMediumView(energy: entry.energy)
+            CaloriesWidgetMediumView(energy: entry.energy, basicNutrition: entry.basicNutrition)
         }
     }
 }

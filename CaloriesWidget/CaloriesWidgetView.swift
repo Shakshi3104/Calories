@@ -10,35 +10,20 @@ import WidgetKit
 
 // MARK: - Medium Widget
 struct CaloriesWidgetMediumView: View {
-    @Environment(\.redactionReasons) var redactionReasons
-    
     var energy: Energy
+    var basicNutrition: BasicNutrition
     
     var body: some View {
         HStack {
-            ZStack {
-                RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                         startColor: .intakeEnergyGreen,
-                         endColor: .intakeEnergyLightGreen)
-                .scaleEffect(0.8)
-                
-                VStack(spacing: 7) {
-                    if energy.ingestible >= 0 {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.red)
-                    } else {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.yellow)
-                    }
-                }
-                .scaleEffect(1.5)
-            }
+            CalorieNutritionRingView(energy: energy, basicNutrition: basicNutrition)
+            .scaleEffect(0.8)
             
             HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    EnergySmallView(value: energy.resting + energy.active, color: .consumptionEnergyOrange)
-                    EnergySmallView(value: energy.dietary, color: .intakeEnergyGreen)
-                    EnergySmallView(value: energy.ingestible, color: .irisPurple)
+                VStack(alignment: .leading, spacing: 2) {
+                    EnergySmallView(value: energy.ingestible, color: .irisPurple, unit: "KCAL")
+                    EnergySmallView(value: basicNutrition.protein, color: .proteinOrange, unit: "g")
+                    EnergySmallView(value: basicNutrition.carbohydrates, color: .carbohydratesBlue, unit: "g")
+                    EnergySmallView(value: basicNutrition.fatTotal, color: .fatPurple, unit: "g")
                 }
             }
             .padding(.leading, 20)
@@ -49,39 +34,11 @@ struct CaloriesWidgetMediumView: View {
 // MARK: - Small Widget
 struct CaloriesWidgetSmallView: View {
     var energy: Energy
+    var basicNutrition: BasicNutrition
     
     var body: some View {
-        ZStack {
-            RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                     startColor: .intakeEnergyGreen,
-                     endColor: .intakeEnergyLightGreen)
-            .scaleEffect(0.9)
-            
-            VStack(spacing: 10) {
-                VStack {
-                    if energy.ingestible >= 0 {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.red)
-                    } else {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.yellow)
-                    }
-                }
-                .scaleEffect(1.5)
-                
-                HStack(alignment: .bottom, spacing: 1) {
-                    Text("\(energy.ingestible)")
-                        .font(.system(.body, design: .rounded).monospacedDigit())
-                        .fontWeight(.medium)
-                        .privacySensitive()
-                    Text("kcal")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                        .padding(.bottom, 1)
-                }
-                .scaleEffect(0.9)
-            }
-        }
+        CalorieNutritionRingView(energy: energy, basicNutrition: basicNutrition)
+            .scaleEffect(0.8)
     }
 }
 
@@ -151,6 +108,7 @@ struct EnergyBarChartView: View {
 struct EnergySmallView: View {
     var value: Int
     var color: Color
+    var unit: String
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 1) {
@@ -159,7 +117,7 @@ struct EnergySmallView: View {
                 .font(.system(.title3, design: .rounded).monospacedDigit())
                 .fontWeight(.medium)
                 .privacySensitive()
-            Text("KCAL")
+            Text(unit)
                 .foregroundColor(color)
                 .font(.system(.body, design: .rounded))
                 .fontWeight(.medium)
@@ -178,9 +136,9 @@ struct CaloriesWidgetSmallBarChartView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 1) {
-                    EnergySmallView(value: energy.resting + energy.active, color: .consumptionEnergyOrange)
-                    EnergySmallView(value: energy.dietary, color: .intakeEnergyGreen)
-                    EnergySmallView(value: energy.ingestible, color: .irisPurple)
+                    EnergySmallView(value: energy.resting + energy.active, color: .consumptionEnergyOrange, unit: "KCAL")
+                    EnergySmallView(value: energy.dietary, color: .intakeEnergyGreen, unit: "KCAL")
+                    EnergySmallView(value: energy.ingestible, color: .irisPurple, unit: "KCAL")
                 }
                 Spacer()
             }
@@ -189,15 +147,80 @@ struct CaloriesWidgetSmallBarChartView: View {
     }
 }
 
+// MARK: - Calorie and Nutrition Ring View
+struct CalorieNutritionRingView: View {
+    @Environment(\.redactionReasons) var redactionReasons
+    
+    var energy: Energy
+    var basicNutrition: BasicNutrition
+    
+    private let basicNutrionGoal = BasicNutrition.goal()
+    
+    var body: some View {
+        ZStack {
+            if redactionReasons.contains(.privacy) {
+                Circle()
+                    .stroke(lineWidth: 15)
+                    .opacity(0.3)
+                    .foregroundColor(.intakeEnergyGreen)
+                    .frame(width: 120, height: 120)
+                Circle()
+                    .stroke(lineWidth: 15)
+                    .opacity(0.3)
+                    .foregroundColor(.proteinOrange)
+                    .frame(width: 89.5, height: 89.5)
+                Circle()
+                    .stroke(lineWidth: 15)
+                    .opacity(0.3)
+                    .foregroundColor(.carbohydratesBlue)
+                    .frame(width: 58.5, height: 58.5)
+                Circle()
+                    .stroke(lineWidth: 15)
+                    .opacity(0.3)
+                    .foregroundColor(.fatPurple)
+                    .frame(width: 28, height: 28)
+            } else {
+                // Calorie Ring
+                let calorie = Float(energy.dietary) / Float(energy.active + energy.resting)
+                RingView(value: calorie,
+                         startColor: .intakeEnergyLightGreen,
+                         endColor: .intakeEnergyGreen,
+                         lineWidth: 15,
+                         size: 120)
+                
+                // Protein Ring
+                let protein = Float(basicNutrionGoal.protein)
+                RingView(value: protein, startColor: .proteinLightOrange, endColor: .proteinOrange,
+                lineWidth: 15,
+                         size: 89.5)
+                
+                // Carbohydrates Ring
+                let carbohydrates = Float(basicNutrition.carbohydrates) / Float(basicNutrionGoal.carbohydrates)
+                RingView(value: carbohydrates, startColor: .carbohydratesLightBlue, endColor: .carbohydratesBlue,
+                lineWidth: 15,
+                         size: 58.5)
+                
+                // Fat Ring
+                let fat = Float(basicNutrition.fatTotal) / Float(basicNutrionGoal.fatTotal)
+                RingView(value: fat, startColor: .fatLightPurple, endColor: .fatPurple,
+                lineWidth: 15,
+                size: 28)
+            }
+        }
+    }
+}
+
 // MARK: - Previews
 struct CaloriesWidgetView_Previews: PreviewProvider {
     static var energy = Energy(resting: 1500, active: 200, dietary: 4000)
+    static var basicNutrition = BasicNutrition(protein: 50, carbohydrates: 200, fatTotal: 30)
     
     static var previews: some View {
         Group {
-            CaloriesWidgetMediumView(energy: energy)
+            CaloriesWidgetMediumView(energy: energy, basicNutrition: basicNutrition)
+                .preferredColorScheme(.dark)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
-            CaloriesWidgetSmallView(energy: energy)
+            CaloriesWidgetSmallView(energy: energy, basicNutrition: basicNutrition)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
             CaloriesWidgetSmallBarChartView(energy: energy)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))

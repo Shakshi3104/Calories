@@ -11,19 +11,23 @@ import WidgetKit
 struct CaloriesEntry: TimelineEntry {
     var date: Date = Date()
     let energy: Energy
+    let basicNutrition: BasicNutrition
     
-    init(_ energy: Energy) {
+    init(_ energy: Energy, _ basicNutrition: BasicNutrition) {
         self.energy = energy
+        self.basicNutrition = basicNutrition
     }
     
-    init(resting: Int, active: Int, dietary: Int) {
-        self.init(Energy(resting: resting, active: active, dietary: dietary))
+    init(resting: Int, active: Int, dietary: Int, protein: Int, carbohydrates: Int, fat: Int) {
+        self.init(Energy(resting: resting, active: active, dietary: dietary),
+        BasicNutrition(protein: protein, carbohydrates: carbohydrates, fatTotal: fat))
     }
 }
 
 struct CaloriesTimeline: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (CaloriesEntry) -> Void) {
-        let entry = CaloriesEntry(resting: 1620, active: 130, dietary: 1850)
+        let entry = CaloriesEntry(resting: 1620, active: 130, dietary: 1850,
+                                  protein: 60, carbohydrates: 200, fat: 30)
         completion(entry)
     }
     
@@ -31,14 +35,18 @@ struct CaloriesTimeline: TimelineProvider {
         let refresh = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date()
         
         HealthObserver().getEnergyWithRequestStatus { (resting, active, dietary) in
-            let entry = CaloriesEntry(resting: resting, active: active, dietary: dietary)
-            
-            let timeline = Timeline(entries: [entry], policy: .after(refresh))
-            completion(timeline)
+            HealthObserver().getBasicNutritionWithRequestStatus { (protein, carbohydrates, fat) in
+                let entry = CaloriesEntry(resting: resting, active: active, dietary: dietary,
+                                          protein: protein, carbohydrates: carbohydrates, fat: fat)
+                
+                let timeline = Timeline(entries: [entry], policy: .after(refresh))
+                completion(timeline)
+            }
         }
     }
     
     func placeholder(in context: Context) -> CaloriesEntry {
-        CaloriesEntry(resting: 1620, active: 370, dietary: 2150)
+        CaloriesEntry(resting: 1620, active: 370, dietary: 2150,
+                        protein: 60, carbohydrates: 200, fat: 30)
     }
 }
