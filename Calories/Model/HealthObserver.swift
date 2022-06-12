@@ -15,11 +15,8 @@ class HealthObserver {
     init() {
         self.healthStore = HKHealthStore()
     }
-}
-
-// MARK: - HealthObserver extension : Energy
-extension HealthObserver {
-    private func getEnergyStatistics(quantityType: HKQuantityType, completion: @escaping (Int) -> ()) {
+    
+    private func getStatistics(quantityType: HKQuantityType, unit: HKUnit, completion: @escaping (Int) -> ()) {
         let startDate = Calendar.current.startOfDay(for: Date())
         let endDate = Date()
         
@@ -39,8 +36,8 @@ extension HealthObserver {
             statsCollection.enumerateStatistics(from: startDate, to: endDate) { stats, stop in
                 if let quantity = stats.sumQuantity() {
                     let date = stats.startDate
-                    let value = quantity.doubleValue(for: .largeCalorie())
-                    print("🍎 date: \(date), \(value) kcal")
+                    let value = quantity.doubleValue(for: unit)
+                    print("🍎 date: \(date), \(value) \(unit.unitString)")
                     
                     completion(Int(value))
                 }
@@ -49,12 +46,16 @@ extension HealthObserver {
         
         healthStore.execute(query)
     }
+}
+
+// MARK: - HealthObserver extension : Energy
+extension HealthObserver {
     
     func getActiveEnergy(completion: @escaping (Int) -> ()) {
         let activeEnergy: HKQuantityType? = HKQuantityType(.activeEnergyBurned)
         
         if let activeEnergy = activeEnergy {
-            getEnergyStatistics(quantityType: activeEnergy, completion: completion)
+            getStatistics(quantityType: activeEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
@@ -62,7 +63,7 @@ extension HealthObserver {
         let dietaryEnergy: HKQuantityType? = HKQuantityType(.dietaryEnergyConsumed)
         
         if let dietaryEnergy = dietaryEnergy {
-            getEnergyStatistics(quantityType: dietaryEnergy, completion: completion)
+            getStatistics(quantityType: dietaryEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
@@ -70,7 +71,7 @@ extension HealthObserver {
         let baselEnergy: HKQuantityType? = HKQuantityType(.basalEnergyBurned)
         
         if let baselEnergy = baselEnergy {
-            getEnergyStatistics(quantityType: baselEnergy, completion: completion)
+            getStatistics(quantityType: baselEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
@@ -159,6 +160,82 @@ extension HealthObserver {
 // MARK: - HealthObserver extension : Nutrition
 extension HealthObserver {
     
+    func getProtein(completion: @escaping (Int) -> ()) {
+        let protein: HKQuantityType? = HKQuantityType(.dietaryProtein)
+        
+        if let protein = protein {
+            getStatistics(quantityType: protein, unit: .gram(), completion: completion)
+        }
+    }
+    
+    func getCarbohydrates(completion: @escaping (Int) -> ()) {
+        let carbohydrates: HKQuantityType? = HKQuantityType(.dietaryCarbohydrates)
+        
+        if let carbohydrates = carbohydrates {
+            getStatistics(quantityType: carbohydrates, unit: .gram(), completion: completion)
+        }
+    }
+    
+    func getFatTotal(completion: @escaping (Int) -> ()) {
+        let fatTotal: HKQuantityType? = HKQuantityType(.dietaryFatTotal)
+        
+        if let fatTotal = fatTotal {
+            getStatistics(quantityType: fatTotal, unit: .gram(), completion: completion)
+        }
+    }
+    
+    // MARK: - Nutrition
+    func getBasicNutrition(completion: @escaping ((Int, Int, Int)) -> ()) {
+        self.getProtein { [self] protein in
+            self.getCarbohydrates { [self] carbohydrates in
+                self.getFatTotal { fatTotal in
+                    completion((protein, carbohydrates, fatTotal))
+                }
+            }
+        }
+    }
+    
+    func getBasicNutritionWithRequestingAuthorization(completion: @escaping ((Int, Int, Int)) -> ()) {
+        // The quantity types to read from the health store
+        let typesToRead: Set = [
+            HKQuantityType(.dietaryProtein),
+            HKQuantityType(.dietaryCarbohydrates),
+            HKQuantityType(.dietaryFatTotal)
+        ]
+        
+        // Request authorization
+        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { success, error in
+            if !success {
+                print("Not allow")
+            } else {
+                print("Success!")
+                self.getBasicNutrition(completion: completion)
+            }
+        }
+    }
+    
+    func getBasicNutritionWithRequestStatus(completion: @escaping ((Int, Int, Int)) -> ()) {
+        // The quantity types to read from the health store
+        let typesToRead: Set = [
+            HKQuantityType(.dietaryProtein),
+            HKQuantityType(.dietaryCarbohydrates),
+            HKQuantityType(.dietaryFatTotal)
+        ]
+        
+        healthStore.getRequestStatusForAuthorization(toShare: Set(), read: typesToRead) { success, error in
+            switch success {
+            case .shouldRequest:
+                print("Calories has not yet requested authorization.")
+            case .unnecessary:
+                print("Calories has already requested authorization.")
+                self.getBasicNutrition(completion: completion)
+            case .unknown:
+                print("Unkown authorization request status")
+            @unknown default:
+                fatalError()
+            }
+        }
+    }
 }
 
 // MARK: - HealthModel
@@ -188,6 +265,16 @@ class HealthModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.energy = Energy(resting: resting, active: active, dietary: dietary)
+            }
+        }
+    }
+    
+    func updateBasicNutrition() {
+        healthObserver.getBasicNutritionWithRequestingAuthorization { (protein, carbohydrates, fatTotal) in
+            print("🍇 \(protein), \(carbohydrates), \(fatTotal)")
+            
+            DispatchQueue.main.async {
+                self.basicNutrition = BasicNutrition(protein: protein, carbohydrates: carbohydrates, fatTotal: fatTotal)
             }
         }
     }

@@ -22,6 +22,7 @@ struct CaloriesApp: App {
             case .active:
                 print("📲 active")
                 healthModel.updateEnergy()
+                healthModel.updateBasicNutrition()
                 WidgetCenter.shared.reloadAllTimelines()
             case .inactive:
                 print("📲 inactive")

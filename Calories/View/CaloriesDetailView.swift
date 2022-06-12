@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - CaloriesDetailView
 struct CaloriesDetailView: View {
     var energy: Energy
-    var basicNutrition: BasicNutrition = BasicNutrition(protein: 40, carbohydrates: 300, fatTotal: 50)
+    var basicNutrition: BasicNutrition
     
     var body: some View {
         List {
@@ -84,19 +84,19 @@ struct NutritionDetailView: View {
     var body: some View {
         HStack(spacing: 15) {
             ZStack {
-                RingView(value: Float(basicNutrition.protein / basicNutritionGoal.protein),
+                RingView(value: Float(basicNutrition.protein) / Float(basicNutritionGoal.protein),
                          startColor: .proteinLightOrange,
                          endColor: .proteinOrange,
                          lineWidth: 20)
                 .scaleEffect(0.3)
                 
-                RingView(value: Float(basicNutrition.carbohydrates / basicNutritionGoal.carbohydrates),
+                RingView(value: Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates),
                          startColor: .carbohydratesLightBlue,
                          endColor: .carbohydratesBlue,
                          lineWidth: 30)
                 .scaleEffect(0.2)
                 
-                RingView(value: Float(basicNutrition.fatTotal / basicNutritionGoal.fatTotal),
+                RingView(value: Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal),
                          startColor: .fatLightPurple,
                          endColor: .fatPurple,
                          lineWidth: 50)
@@ -105,15 +105,15 @@ struct NutritionDetailView: View {
             .frame(width: 45, height: 45)
             
             HStack(spacing: 10) {
-                HealthValueView(name: "Protein", value: Int(basicNutrition.protein), unit: "g", color: .proteinOrange)
+                HealthValueView(name: "Protein", value: basicNutrition.protein, unit: "g", color: .proteinOrange)
                 
                 Divider()
                 
-                HealthValueView(name: "Carbohydrates", value: Int(basicNutrition.carbohydrates), unit: "g", color: .carbohydratesBlue)
+                HealthValueView(name: "Carbohydrates", value: basicNutrition.carbohydrates, unit: "g", color: .carbohydratesBlue)
                 
                 Divider()
                 
-                HealthValueView(name: "Fat", value: Int(basicNutrition.fatTotal), unit: "g", color: .fatPurple)
+                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatPurple)
             }
         }
         .padding(.vertical, 15)
@@ -126,7 +126,8 @@ struct CaloriesDetailView_Previews: PreviewProvider {
     static var previews: some View {
         CaloriesDetailView(energy: Energy(resting: 1500,
                                           active: 200,
-                                          dietary: 1600))
+                                          dietary: 1600),
+        basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20))
         .preferredColorScheme(.dark)
         
     }

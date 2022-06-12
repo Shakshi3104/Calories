@@ -10,42 +10,49 @@ import SwiftUI
 // MARK: - CalorieView
 struct CaloriesView: View {
     var energy: Energy
+    var basicNutrition: BasicNutrition
     var textStyle: Font.TextStyle = .title3
     
     var body: some View {
         NavigationView {
             List {
-                HStack(spacing: 10) {
-                    VStack(spacing: 5) {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.consumptionEnergyOrange)
+                NavigationLink {
+                    CaloriesDetailView(energy: energy,
+                                       basicNutrition: basicNutrition)
+                    .navigationTitle("Calorie & Nutrition")
+                } label: {
+                    HStack(spacing: 10) {
+                        VStack(spacing: 5) {
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.consumptionEnergyOrange)
+                            
+                            HStack(spacing: 10) {
+                                CalorieView(energyName: "Resting",
+                                            energy: energy.resting,
+                                            color: .consumptionEnergyOrange,
+                                            textStyle: textStyle)
+                                
+                                Divider()
+                                
+                                CalorieView(energyName: "Active",
+                                            energy: energy.active,
+                                            color: .consumptionEnergyOrange,
+                                            textStyle: textStyle)
+                            }
+                        }
+                        Divider()
                         
-                        HStack(spacing: 10) {
-                            CalorieView(energyName: "Resting",
-                                        energy: energy.resting,
-                                        color: .consumptionEnergyOrange,
-                                        textStyle: textStyle)
-                            
-                            Divider()
-                            
-                            CalorieView(energyName: "Active",
-                                        energy: energy.active,
-                                        color: .consumptionEnergyOrange,
+                        VStack(spacing: 5) {
+                            Image(systemName: "takeoutbag.and.cup.and.straw.fill")
+                                .foregroundColor(.intakeEnergyGreen)
+                            CalorieView(energyName: "Dietary",
+                                        energy: energy.dietary,
+                                        color: .intakeEnergyGreen,
                                         textStyle: textStyle)
                         }
                     }
-                    Divider()
-                    
-                    VStack(spacing: 5) {
-                        Image(systemName: "takeoutbag.and.cup.and.straw.fill")
-                            .foregroundColor(.intakeEnergyGreen)
-                    CalorieView(energyName: "Dietary",
-                                energy: energy.dietary,
-                                color: .intakeEnergyGreen,
-                                textStyle: textStyle)
-                    }
+                    .padding(.vertical, 15)
                 }
-                .padding()
             }
             .navigationTitle("Calories")
         }
@@ -95,6 +102,7 @@ struct CalorieView_Previews: PreviewProvider {
     static var previews: some View {
         CaloriesView(energy: Energy(resting: 1500,
                                     active: 200,
-                                    dietary: 1600))
+                                    dietary: 1600),
+        basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20))
     }
 }
