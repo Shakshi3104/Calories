@@ -22,13 +22,13 @@
 		CE6E09B027C32A9D008D83B9 /* CaloriesWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE6E09A227C32A9C008D83B9 /* CaloriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE6E09B727C32AB8008D83B9 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E09B627C32AB8008D83B9 /* HealthKit.framework */; };
 		CE6E09B927C32AD5008D83B9 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E09B627C32AB8008D83B9 /* HealthKit.framework */; };
-		CE6E09BB27C32D73008D83B9 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */; };
+		CE6E09BB27C32D73008D83B9 /* HealthValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */; };
 		CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BE27C33198008D83B9 /* Energy.swift */; };
 		CE6E09C127C34C0A008D83B9 /* HealthObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */; };
 		CE6E09C427C3796E008D83B9 /* HealthObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */; };
 		CE6E09C627C37F1D008D83B9 /* CaloriesEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */; };
 		CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BE27C33198008D83B9 /* Energy.swift */; };
-		CE78E82D2855A224001DE399 /* CaloriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78E82C2855A224001DE399 /* CaloriesDetailView.swift */; };
+		CE78E82D2855A224001DE399 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78E82C2855A224001DE399 /* CaloriesView.swift */; };
 		CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE82CE3D27C47BC7001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */; };
@@ -76,11 +76,11 @@
 		CE6E09B527C32AB8008D83B9 /* CaloriesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CaloriesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		CE6E09B627C32AB8008D83B9 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		CE6E09B827C32AD5008D83B9 /* Calories.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calories.entitlements; sourceTree = "<group>"; };
-		CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
+		CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthValueView.swift; sourceTree = "<group>"; };
 		CE6E09BE27C33198008D83B9 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthObserver.swift; sourceTree = "<group>"; };
 		CE6E09C227C37751008D83B9 /* CaloriesEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesEntry.swift; sourceTree = "<group>"; };
-		CE78E82C2855A224001DE399 /* CaloriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesDetailView.swift; sourceTree = "<group>"; };
+		CE78E82C2855A224001DE399 /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
 		CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		CE871DE427C486EB00BE4DCE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetView.swift; sourceTree = "<group>"; };
@@ -185,10 +185,10 @@
 			isa = PBXGroup;
 			children = (
 				CE6E099227C32A77008D83B9 /* ContentView.swift */,
-				CE6E09BA27C32D73008D83B9 /* CaloriesView.swift */,
+				CE78E82C2855A224001DE399 /* CaloriesView.swift */,
 				CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */,
+				CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */,
 				CE4F92252854AB6D007187E7 /* RingView.swift */,
-				CE78E82C2855A224001DE399 /* CaloriesDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -304,7 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE78E82D2855A224001DE399 /* CaloriesDetailView.swift in Sources */,
+				CE78E82D2855A224001DE399 /* CaloriesView.swift in Sources */,
 				CE6E099327C32A77008D83B9 /* ContentView.swift in Sources */,
 				CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */,
 				CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */,
@@ -312,7 +312,7 @@
 				CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */,
 				CE4F92262854AB6D007187E7 /* RingView.swift in Sources */,
 				CE4F92282854B299007187E7 /* Nutrition.swift in Sources */,
-				CE6E09BB27C32D73008D83B9 /* CaloriesView.swift in Sources */,
+				CE6E09BB27C32D73008D83B9 /* HealthValueView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

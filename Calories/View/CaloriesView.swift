@@ -1,57 +1,26 @@
 //
-//  CalorieView.swift
+//  CaloriesDetailView.swift
 //  Calories
 //
-//  Created by MacBook Pro M1 on 2022/02/21.
+//  Created by MacBook Pro M1 on 2022/06/12.
 //
 
 import SwiftUI
 
-// MARK: - CalorieView
+// MARK: - CaloriesView
 struct CaloriesView: View {
     var energy: Energy
     var basicNutrition: BasicNutrition
-    var textStyle: Font.TextStyle = .title3
     
     var body: some View {
         NavigationView {
             List {
-                NavigationLink {
-                    CaloriesDetailView(energy: energy,
-                                       basicNutrition: basicNutrition)
-                    .navigationTitle("Calorie & Nutrition")
-                } label: {
-                    HStack(spacing: 10) {
-                        VStack(spacing: 5) {
-                            Image(systemName: "flame.fill")
-                                .foregroundColor(.consumptionEnergyOrange)
-                            
-                            HStack(spacing: 10) {
-                                CalorieView(energyName: "Resting",
-                                            energy: energy.resting,
-                                            color: .consumptionEnergyOrange,
-                                            textStyle: textStyle)
-                                
-                                Divider()
-                                
-                                CalorieView(energyName: "Active",
-                                            energy: energy.active,
-                                            color: .consumptionEnergyOrange,
-                                            textStyle: textStyle)
-                            }
-                        }
-                        Divider()
-                        
-                        VStack(spacing: 5) {
-                            Image(systemName: "takeoutbag.and.cup.and.straw.fill")
-                                .foregroundColor(.intakeEnergyGreen)
-                            CalorieView(energyName: "Dietary",
-                                        energy: energy.dietary,
-                                        color: .intakeEnergyGreen,
-                                        textStyle: textStyle)
-                        }
-                    }
-                    .padding(.vertical, 15)
+                Section("Calorie") {
+                    CalorieTopView(energy: energy)
+                }
+                
+                Section("Nutrition") {
+                    NutritionTopView(basicNutrition: basicNutrition)
                 }
             }
             .navigationTitle("Calories")
@@ -59,50 +28,110 @@ struct CaloriesView: View {
     }
 }
 
-// MARK: - CalorieView
-struct CalorieView: View {
-    var energyName: String
-    var energy: Int
-    var color: Color
-    var textStyle: Font.TextStyle = .title3
+// MARK: - Calorie top View
+struct CalorieTopView: View {
+    var energy: Energy
+    
+    private let textStyle: Font.TextStyle = .body
     
     var body: some View {
-        HealthValueView(name: energyName, value: energy, unit: "kcal", color: color, textStyle: textStyle)
-    }
-}
-
-// MARK: - Health value view
-struct HealthValueView: View {
-    var name: String
-    var value: Int
-    var unit: String
-    var color: Color
-    var textStyle: Font.TextStyle = .title3
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(name)
-                .foregroundColor(color)
-                .font(.caption)
-            HStack(alignment: .bottom, spacing: 2) {
-                Text("\(value)")
-                    .font(.system(textStyle, design: .rounded).monospacedDigit())
-                    .fontWeight(.medium)
-                Text(unit)
-                    .foregroundColor(.gray)
-                    .font(.footnote)
-                    .padding(.bottom, 2)
+        HStack(spacing: 15) {
+            RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
+                     startColor: .intakeEnergyLightGreen,
+                     endColor: .intakeEnergyGreen,
+                     lineWidth: 20)
+            .scaleEffect(0.3)
+            .frame(width: 45, height: 45)
+            
+            
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 10) {
+                    CalorieView(energyName: "Resting",
+                                energy: energy.resting,
+                                color: .consumptionEnergyOrange,
+                                textStyle: textStyle)
+                    
+                    Divider()
+                    
+                    CalorieView(energyName: "Active",
+                                energy: energy.active,
+                                color: .consumptionEnergyOrange,
+                                textStyle: textStyle)
+                    
+                    Divider()
+                    
+                    CalorieView(energyName: "Dietary",
+                                energy: energy.dietary,
+                                color: .intakeEnergyGreen,
+                                textStyle: textStyle)
+                }
+                .padding(.horizontal, 0)
+                
+                CalorieView(energyName: "Ingestible",
+                            energy: energy.ingestible,
+                            color: .irisPurple,
+                            textStyle: .body)
             }
         }
+        .padding(.vertical, 15)
     }
 }
 
+// MARK: - Nutrition top View
+struct NutritionTopView: View {
+    var basicNutrition: BasicNutrition
+    
+    private let basicNutritionGoal = BasicNutrition.goal()
+    private let textStyle: Font.TextStyle = .body
+    
+    var body: some View {
+        HStack(spacing: 15) {
+            ZStack {
+                RingView(value: Float(basicNutrition.protein) / Float(basicNutritionGoal.protein),
+                         startColor: .proteinLightOrange,
+                         endColor: .proteinOrange,
+                         lineWidth: 20)
+                .scaleEffect(0.3)
+                
+                RingView(value: Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates),
+                         startColor: .carbohydratesLightBlue,
+                         endColor: .carbohydratesBlue,
+                         lineWidth: 30)
+                .scaleEffect(0.2)
+                
+                RingView(value: Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal),
+                         startColor: .fatLightPurple,
+                         endColor: .fatPurple,
+                         lineWidth: 50)
+                .scaleEffect(0.107)
+            }
+            .frame(width: 45, height: 45)
+            
+            HStack(spacing: 10) {
+                HealthValueView(name: "Protein", value: basicNutrition.protein, unit: "g", color: .proteinOrange)
+                
+                Divider()
+                
+                HealthValueView(name: "Carbohydrates", value: basicNutrition.carbohydrates, unit: "g", color: .carbohydratesBlue)
+                
+                Divider()
+                
+                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatPurple)
+            }
+        }
+        .padding(.vertical, 15)
+    }
+}
+
+
 // MARK: - Preview
-struct CalorieView_Previews: PreviewProvider {
+struct CaloriesView_Previews: PreviewProvider {
     static var previews: some View {
         CaloriesView(energy: Energy(resting: 1500,
-                                    active: 200,
-                                    dietary: 1600),
+                                          active: 200,
+                                          dietary: 1600),
         basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20))
+        .preferredColorScheme(.dark)
+        
     }
 }
