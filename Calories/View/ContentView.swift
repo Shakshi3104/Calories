@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var energyModel: EnergyModel
+    @ObservedObject var healthModel: HealthModel
     
     var body: some View {
         VStack {
-            CaloriesView(energy: energyModel.energy)
+            CaloriesView(energy: healthModel.energy)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(energyModel: EnergyModel())
+        ContentView(healthModel: HealthModel())
     }
 }

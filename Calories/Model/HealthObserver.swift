@@ -7,16 +7,19 @@
 
 import HealthKit
 
-// MARK: - EnergyObserver
-class EnergyObserver {
+// MARK: - HealthObserver
+class HealthObserver {
     /// - Tag: Health Store
     let healthStore: HKHealthStore
     
     init() {
         self.healthStore = HKHealthStore()
     }
-    
-    private func getStatistics(quantityType: HKQuantityType, completion: @escaping (Int) -> ()) {
+}
+
+// MARK: - HealthObserver extension : Energy
+extension HealthObserver {
+    private func getEnergyStatistics(quantityType: HKQuantityType, completion: @escaping (Int) -> ()) {
         let startDate = Calendar.current.startOfDay(for: Date())
         let endDate = Date()
         
@@ -51,7 +54,7 @@ class EnergyObserver {
         let activeEnergy: HKQuantityType? = HKQuantityType(.activeEnergyBurned)
         
         if let activeEnergy = activeEnergy {
-            getStatistics(quantityType: activeEnergy, completion: completion)
+            getEnergyStatistics(quantityType: activeEnergy, completion: completion)
         }
     }
     
@@ -59,7 +62,7 @@ class EnergyObserver {
         let dietaryEnergy: HKQuantityType? = HKQuantityType(.dietaryEnergyConsumed)
         
         if let dietaryEnergy = dietaryEnergy {
-            getStatistics(quantityType: dietaryEnergy, completion: completion)
+            getEnergyStatistics(quantityType: dietaryEnergy, completion: completion)
         }
     }
     
@@ -67,37 +70,11 @@ class EnergyObserver {
         let baselEnergy: HKQuantityType? = HKQuantityType(.basalEnergyBurned)
         
         if let baselEnergy = baselEnergy {
-            getStatistics(quantityType: baselEnergy, completion: completion)
+            getEnergyStatistics(quantityType: baselEnergy, completion: completion)
         }
     }
     
-    // MARK: - async/await
-    
-    func getActiveEnergy() async  -> Int {
-        await withCheckedContinuation({ continuation in
-            getActiveEnergy { value in
-                continuation.resume(returning: value)
-            }
-        })
-    }
-    
-    func getDietaryEnergy() async -> Int {
-        await withCheckedContinuation({ continuation in
-            getDietaryEnergy { value in
-                continuation.resume(returning: value)
-            }
-        })
-    }
-    
-    func getRestingEnergy() async -> Int {
-        await withCheckedContinuation({ continuation in
-            getRestingEnergy { value in
-                continuation.resume(returning: value)
-            }
-        })
-    }
-    
-    // MARK: -
+    // MARK: - Energy
     func getEnergy(completion: @escaping ((Int, Int, Int)) -> ()) {
         self.getRestingEnergy { [self] resting in
             self.getActiveEnergy { [self] active in
@@ -151,16 +128,52 @@ class EnergyObserver {
     }
 }
 
-// MARK: - EnergyModel
-class EnergyModel: ObservableObject {
-    @Published var energy: Energy = Energy(resting: 0, active: 0, dietary: 0)
+// MARK: - HealthObserver extension : async
+extension HealthObserver {
     
-    let energyObserver = EnergyObserver()
+    func getActiveEnergy() async  -> Int {
+        await withCheckedContinuation({ continuation in
+            getActiveEnergy { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+    
+    func getDietaryEnergy() async -> Int {
+        await withCheckedContinuation({ continuation in
+            getDietaryEnergy { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+    
+    func getRestingEnergy() async -> Int {
+        await withCheckedContinuation({ continuation in
+            getRestingEnergy { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+}
+
+// MARK: - HealthObserver extension : Nutrition
+extension HealthObserver {
+    
+}
+
+// MARK: - HealthModel
+class HealthModel: ObservableObject {
+    /// Published
+    @Published var energy: Energy = Energy(resting: 0, active: 0, dietary: 0)
+    @Published var basicNutrition: BasicNutrition = BasicNutrition(protein: 0, carbohydrates: 0, fatTotal: 0)
+    
+    /// Observer
+    let healthObserver = HealthObserver()
     
     func updateEnergy() async {
-        let resting = await energyObserver.getRestingEnergy()
-        let active = await energyObserver.getActiveEnergy()
-        let dietary = await energyObserver.getDietaryEnergy()
+        let resting = await healthObserver.getRestingEnergy()
+        let active = await healthObserver.getActiveEnergy()
+        let dietary = await healthObserver.getDietaryEnergy()
     
         print("🍎 \(resting), \(active), \(dietary)")
         
@@ -170,7 +183,7 @@ class EnergyModel: ObservableObject {
     }
     
     func updateEnergy() {
-        energyObserver.getEnergyWithRequestingAuthorization { (resting, active, dietary) -> Void in
+        healthObserver.getEnergyWithRequestingAuthorization { (resting, active, dietary) -> Void in
             print("🍎 \(resting), \(active), \(dietary)")
             
             DispatchQueue.main.async {
