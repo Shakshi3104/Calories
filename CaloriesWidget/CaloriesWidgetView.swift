@@ -13,12 +13,9 @@ struct CaloriesWidgetMediumView: View {
     var energy: Energy
     var basicNutrition: BasicNutrition
     
-    var basicNutritionGoal = BasicNutritionGoal()
-    
     var body: some View {
         HStack {
-            CalorieNutritionRingView(energy: energy, basicNutrition: basicNutrition,
-            basicNutritionGoal: basicNutritionGoal)
+            CalorieNutritionRingView(energy: energy, basicNutrition: basicNutrition)
             .scaleEffect(0.8)
             
             HStack {
@@ -39,10 +36,9 @@ struct CaloriesWidgetSmallView: View {
     var energy: Energy
     var basicNutrition: BasicNutrition
     
-    var basicNutritionGoal = BasicNutritionGoal()
-    
     var body: some View {
-        CalorieNutritionRingView(energy: energy, basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
+        CalorieNutritionRingView(energy: energy,
+                                 basicNutrition: basicNutrition)
             .scaleEffect(0.8)
     }
 }
@@ -159,6 +155,7 @@ struct CalorieNutritionRingView: View {
     var energy: Energy
     var basicNutrition: BasicNutrition
     
+    // Basic nutrition goal
     var basicNutritionGoal = BasicNutritionGoal()
     
     var body: some View {
@@ -194,7 +191,7 @@ struct CalorieNutritionRingView: View {
                          size: 120)
                 
                 // Protein Ring
-                let protein = Float(basicNutritionGoal.protein)
+                let protein = Float(basicNutrition.protein) / Float(basicNutritionGoal.protein)
                 RingView(value: protein, startColor: .proteinLightOrange, endColor: .proteinOrange,
                 lineWidth: 15,
                          size: 89.5)
