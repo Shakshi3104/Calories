@@ -1,10 +1,6 @@
 # Calories
 
-**Calories** allows you to see your energy balance in the widget.
-You can check if you have taken too much energy from food.
+**Calories** allows you to see your energy balance and nutrition intake in the widget.
+You can check if you have taken too much energy or nutrition from food.
 
-## Widget
-
-Like the fitness widget, when your iPhone is locked, your energy balance is not displayed.
-
-![](materials/screenshots.PNG)
+![](./screenshots_v2.png)

@@ -62,9 +62,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE05F7332858B64B006DE55D /* screenshots_v2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots_v2.png; sourceTree = "<group>"; };
 		CE4F92252854AB6D007187E7 /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		CE4F92272854B299007187E7 /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
-		CE68AD0C27C5C18800048740 /* screenshots.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots.PNG; sourceTree = "<group>"; };
 		CE6E098D27C32A77008D83B9 /* Calories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6E099027C32A77008D83B9 /* CaloriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesApp.swift; sourceTree = "<group>"; };
 		CE6E099227C32A77008D83B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		CE68AD0B27C5C17A00048740 /* materials */ = {
 			isa = PBXGroup;
 			children = (
-				CE68AD0C27C5C18800048740 /* screenshots.PNG */,
+				CE05F7332858B64B006DE55D /* screenshots_v2.png */,
 			);
 			path = materials;
 			sourceTree = "<group>";
