@@ -42,15 +42,15 @@ struct CaloriesWidgetChartEntryView: View {
 
 // MARK: - main
 
-struct CaloriesWidget: Widget {
+struct CalorieNutritionWidget: Widget {
     let kind: String = "Calories"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
             CaloriesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calories")
-        .description("See your intake and consumption energy.")
+        .configurationDisplayName("Calories and Nutrition")
+        .description("See your intake energy and basic nutrition.")
         .supportedFamilies([.systemMedium, .systemSmall])
     }
 }
@@ -74,7 +74,7 @@ struct CaloriesChartWidget: Widget {
 struct CaloriesWidgets: WidgetBundle {
     @WidgetBundleBuilder
     var body: some Widget {
-        CaloriesWidget()
+        CalorieNutritionWidget()
         CaloriesChartWidget()
     }
 }
