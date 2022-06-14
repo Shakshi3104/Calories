@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - For UserDafualts
 let PROTEIN_GOAL_KEY_NAME = "protein_goal"
@@ -27,13 +28,22 @@ struct BasicNutrition {
     let fatTotal: Int
     
     /// Nutrition goal
-    static func goal() -> BasicNutrition {
-        let protein = UserDefaults.standard.integer(forKey: PROTEIN_GOAL_KEY_NAME)
-        let carbohydrates = UserDefaults.standard.integer(forKey: CARBOHYDRATES_GOAL_KEY_NAME)
-        let fatTotal = UserDefaults.standard.integer(forKey: FAT_TOTAL_GOAL_KEY_NAME)
-        
-        return BasicNutrition(protein: protein != 0 ? protein : PROTEIN_GOAL_DEFAULT,
-                              carbohydrates: carbohydrates != 0 ? carbohydrates : CARBOHYDRATES_GOAL_DEFAULT,
-                              fatTotal: fatTotal != 0 ? fatTotal : FAT_TOTAL_GOAL_DEFAULT)
-    }
+//    static func goal() -> BasicNutrition {
+//        let protein = UserDefaults.standard.integer(forKey: PROTEIN_GOAL_KEY_NAME)
+//        let carbohydrates = UserDefaults.standard.integer(forKey: CARBOHYDRATES_GOAL_KEY_NAME)
+//        let fatTotal = UserDefaults.standard.integer(forKey: FAT_TOTAL_GOAL_KEY_NAME)
+//
+//        print("🫐 \(protein), \(carbohydrates), \(fatTotal)")
+//
+//        return BasicNutrition(protein: protein != 0 ? protein : PROTEIN_GOAL_DEFAULT,
+//                              carbohydrates: carbohydrates != 0 ? carbohydrates : CARBOHYDRATES_GOAL_DEFAULT,
+//                              fatTotal: fatTotal != 0 ? fatTotal : FAT_TOTAL_GOAL_DEFAULT)
+//    }
+}
+
+// MARK: - Basic nutrition goal
+class BasicNutritionGoal: ObservableObject {
+    @AppStorage(PROTEIN_GOAL_KEY_NAME) var protein = PROTEIN_GOAL_DEFAULT
+    @AppStorage(CARBOHYDRATES_GOAL_KEY_NAME) var carbohydrates = CARBOHYDRATES_GOAL_DEFAULT
+    @AppStorage(FAT_TOTAL_GOAL_KEY_NAME) var fatTotal = FAT_TOTAL_GOAL_DEFAULT
 }

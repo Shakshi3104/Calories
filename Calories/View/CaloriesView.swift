@@ -12,6 +12,10 @@ struct CaloriesView: View {
     var energy: Energy
     var basicNutrition: BasicNutrition
     
+    @StateObject var basicNutritionGoal: BasicNutritionGoal
+    
+    @State private var isPresented = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -25,13 +29,25 @@ struct CaloriesView: View {
                 
                 Section("Nutrition") {
                     NavigationLink {
-                        NutritionDetailView(basicNutrition: basicNutrition)
+                        NutritionDetailView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     } label: {
-                        NutritionTopView(basicNutrition: basicNutrition)
+                        NutritionTopView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     }
                 }
             }
             .navigationTitle("Calories")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isPresented.toggle()
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+                }
+            }
+            .sheet(isPresented: $isPresented) {
+                GoalSettingView(basicNutritionGoal: basicNutritionGoal)
+            }
         }
     }
 }
@@ -91,7 +107,8 @@ struct CalorieTopView: View {
 struct NutritionTopView: View {
     var basicNutrition: BasicNutrition
     
-    private let basicNutritionGoal = BasicNutrition.goal()
+    @StateObject var basicNutritionGoal: BasicNutritionGoal
+    
     private let textStyle: Font.TextStyle = .body
     
     var body: some View {
@@ -140,7 +157,8 @@ struct CaloriesView_Previews: PreviewProvider {
         CaloriesView(energy: Energy(resting: 1500,
                                           active: 200,
                                           dietary: 1600),
-        basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20))
+        basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20),
+        basicNutritionGoal: BasicNutritionGoal())
         .preferredColorScheme(.dark)
         
     }

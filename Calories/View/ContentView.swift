@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var healthModel: HealthModel
+    @StateObject var healthModel: HealthModel
+    @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     var body: some View {
         VStack {
             CaloriesView(energy: healthModel.energy,
-                         basicNutrition: healthModel.basicNutrition)
+                         basicNutrition: healthModel.basicNutrition,
+            basicNutritionGoal: basicNutritionGoal)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(healthModel: HealthModel())
+        ContentView(healthModel: HealthModel(),
+                    basicNutritionGoal: BasicNutritionGoal())
     }
 }

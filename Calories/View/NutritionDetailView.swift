@@ -10,7 +10,7 @@ import SwiftUI
 struct NutritionDetailView: View {
     var basicNutrition: BasicNutrition
     
-    private let basicNutritionGoal = BasicNutrition.goal()
+    @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     var body: some View {
         ScrollView {
@@ -83,6 +83,6 @@ struct BasicNutritionView: View {
 
 struct NutritionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NutritionDetailView(basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20))
+        NutritionDetailView(basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20), basicNutritionGoal: BasicNutritionGoal())
     }
 }

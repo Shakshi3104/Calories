@@ -34,6 +34,7 @@
 		CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE82CE3D27C47BC7001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */; };
+		CEF2466428575D8700D9883C /* GoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2466328575D8700D9883C /* GoalSettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		CE871DE427C486EB00BE4DCE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetView.swift; sourceTree = "<group>"; };
+		CEF2466328575D8700D9883C /* GoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				CE4F92252854AB6D007187E7 /* RingView.swift */,
 				CE78E82E2855EA00001DE399 /* CalorieDetailView.swift */,
 				CE78E8322855F67E001DE399 /* NutritionDetailView.swift */,
+				CEF2466328575D8700D9883C /* GoalSettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				CE78E82F2855EA00001DE399 /* CalorieDetailView.swift in Sources */,
 				CE6E099327C32A77008D83B9 /* ContentView.swift in Sources */,
 				CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */,
+				CEF2466428575D8700D9883C /* GoalSettingView.swift in Sources */,
 				CE78E8332855F67E001DE399 /* NutritionDetailView.swift in Sources */,
 				CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */,
 				CE6E09C127C34C0A008D83B9 /* HealthObserver.swift in Sources */,

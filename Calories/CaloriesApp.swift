@@ -12,10 +12,11 @@ import WidgetKit
 struct CaloriesApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @StateObject var healthModel = HealthModel()
+    @StateObject var basicNutritionGoal = BasicNutritionGoal()
     
     var body: some Scene {
         WindowGroup {
-            ContentView(healthModel: healthModel)
+            ContentView(healthModel: healthModel, basicNutritionGoal: basicNutritionGoal)
         }
         .onChange(of: scenePhase) { scene in
             switch scene {
