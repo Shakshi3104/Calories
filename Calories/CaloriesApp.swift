@@ -25,7 +25,7 @@ struct CaloriesApp: App {
                 healthModel.updateEnergy()
                 healthModel.updateBasicNutrition()
                 
-                UserDefaults.standard.synchronize()
+                UserDefaults(suiteName: "group.com.shakshi.Calories.goal")?.synchronize()
                 WidgetCenter.shared.reloadAllTimelines()
             case .inactive:
                 print("📲 inactive")
