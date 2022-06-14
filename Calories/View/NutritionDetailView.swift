@@ -34,7 +34,7 @@ struct NutritionDetailView: View {
                              startColor: .fatLightPurple,
                              endColor: .fatPurple,
                              lineWidth: 30,
-                             size: 125,
+                             size: 126,
                              systemImageName: "scalemass")
                 }
                 .frame(width: 300, height: 300)
