@@ -11,17 +11,21 @@ import WidgetKit
 @main
 struct CaloriesApp: App {
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject var energyModel = EnergyModel()
+    @StateObject var healthModel = HealthModel()
+    @StateObject var basicNutritionGoal = BasicNutritionGoal()
     
     var body: some Scene {
         WindowGroup {
-            ContentView(energyModel: energyModel)
+            ContentView(healthModel: healthModel, basicNutritionGoal: basicNutritionGoal)
         }
         .onChange(of: scenePhase) { scene in
             switch scene {
             case .active:
                 print("📲 active")
-                energyModel.updateEnergy()
+                healthModel.updateEnergy()
+                healthModel.updateBasicNutrition()
+                
+                UserDefaults(suiteName: "group.com.shakshi.Calories.goal")?.synchronize()
                 WidgetCenter.shared.reloadAllTimelines()
             case .inactive:
                 print("📲 inactive")
