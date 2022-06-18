@@ -17,22 +17,22 @@ struct NutritionDetailView: View {
             VStack {
                 ZStack {
                     RingView(value: Float(basicNutrition.protein) / Float(basicNutritionGoal.protein),
-                             startColor: .proteinLightOrange,
-                             endColor: .proteinOrange,
+                             startColor: .proteinPink,
+                             endColor: .proteinLightPink,
                              lineWidth: 30,
                              size: 250,
                              systemImageName: "circlebadge.2")
                     
                     RingView(value: Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates),
-                             startColor: .carbohydratesLightBlue,
-                             endColor: .carbohydratesBlue,
+                             startColor: .carbohydratesBlue,
+                             endColor: .carbohydratesLightBlue,
                              lineWidth: 30,
                              size: 188,
                              systemImageName: "speedometer")
                     
                     RingView(value: Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal),
-                             startColor: .fatLightPurple,
-                             endColor: .fatPurple,
+                             startColor: .fatSkyBlue,
+                             endColor: .fatLightSkyBlue,
                              lineWidth: 30,
                              size: 126,
                              systemImageName: "scalemass")
@@ -40,9 +40,9 @@ struct NutritionDetailView: View {
                 .frame(width: 300, height: 300)
                 
                 VStack(alignment: .leading, spacing: 20) {
-                    BasicNutritionView(name: "Protein", value: basicNutrition.protein, goalValue: basicNutritionGoal.protein, color: .proteinOrange)
+                    BasicNutritionView(name: "Protein", value: basicNutrition.protein, goalValue: basicNutritionGoal.protein, color: .proteinPink)
                     BasicNutritionView(name: "Carbohydrates", value: basicNutrition.carbohydrates, goalValue: basicNutritionGoal.carbohydrates, color: .carbohydratesBlue)
-                    BasicNutritionView(name: "Fat", value: basicNutrition.fatTotal, goalValue: basicNutritionGoal.fatTotal, color: .fatPurple)
+                    BasicNutritionView(name: "Fat", value: basicNutrition.fatTotal, goalValue: basicNutritionGoal.fatTotal, color: .fatSkyBlue)
                 }
                 .padding()
             }

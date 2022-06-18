@@ -61,8 +61,8 @@ struct CalorieTopView: View {
     var body: some View {
         HStack(spacing: 25) {
             RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
-                     startColor: .intakeEnergyLightGreen,
-                     endColor: .intakeEnergyGreen,
+                     startColor: .intakeEnergyGreen,
+                     endColor: .intakeEnergyLightGreen,
                      lineWidth: 20)
             .scaleEffect(0.3)
             .frame(width: 45, height: 45)
@@ -115,27 +115,27 @@ struct NutritionTopView: View {
         HStack(spacing: 25) {
             ZStack {
                 RingView(value: Float(basicNutrition.protein) / Float(basicNutritionGoal.protein),
-                         startColor: .proteinLightOrange,
-                         endColor: .proteinOrange,
+                         startColor: .proteinPink,
+                         endColor: .proteinLightPink,
                          lineWidth: 20)
                 .scaleEffect(0.3)
                 
                 RingView(value: Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates),
-                         startColor: .carbohydratesLightBlue,
-                         endColor: .carbohydratesBlue,
+                         startColor: .carbohydratesBlue,
+                         endColor: .carbohydratesLightBlue,
                          lineWidth: 30)
                 .scaleEffect(0.2)
                 
                 RingView(value: Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal),
-                         startColor: .fatLightPurple,
-                         endColor: .fatPurple,
+                         startColor: .fatSkyBlue,
+                         endColor: .fatLightSkyBlue,
                          lineWidth: 50)
                 .scaleEffect(0.107)
             }
             .frame(width: 45, height: 45)
             
             HStack(spacing: 10) {
-                HealthValueView(name: "Protein", value: basicNutrition.protein, unit: "g", color: .proteinOrange)
+                HealthValueView(name: "Protein", value: basicNutrition.protein, unit: "g", color: .proteinPink)
                 
                 Divider()
                 
@@ -143,7 +143,7 @@ struct NutritionTopView: View {
                 
                 Divider()
                 
-                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatPurple)
+                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatSkyBlue)
             }
         }
         .padding(.vertical, 15)
