@@ -22,11 +22,11 @@ struct GoalSettingView: View {
             List {
                 Section {
                     GoalField(name: "Protein", value: $basicNutritionGoal.protein,
-                              systemImageName: "circlebadge.2", color: .proteinOrange)
+                              systemImageName: "circlebadge.2", color: .proteinPink)
                     GoalField(name: "Carbohydrates", value: $basicNutritionGoal.carbohydrates,
                               systemImageName: "speedometer", color: .carbohydratesBlue)
                     GoalField(name: "Fat", value: $basicNutritionGoal.fatTotal,
-                              systemImageName: "scalemass", color: .fatPurple)
+                              systemImageName: "scalemass", color: .fatSkyBlue)
                 } header: {
                     Text("Nutrition Goal")
                 }

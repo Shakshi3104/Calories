@@ -21,9 +21,9 @@ struct CaloriesWidgetMediumView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     EnergySmallView(value: energy.ingestible, color: .irisPurple, unit: "KCAL")
-                    EnergySmallView(value: basicNutrition.protein, color: .proteinOrange, unit: "g")
+                    EnergySmallView(value: basicNutrition.protein, color: .proteinPink, unit: "g")
                     EnergySmallView(value: basicNutrition.carbohydrates, color: .carbohydratesBlue, unit: "g")
-                    EnergySmallView(value: basicNutrition.fatTotal, color: .fatPurple, unit: "g")
+                    EnergySmallView(value: basicNutrition.fatTotal, color: .fatSkyBlue, unit: "g")
                 }
             }
             .padding(.leading, 20)
@@ -169,7 +169,7 @@ struct CalorieNutritionRingView: View {
                 Circle()
                     .stroke(lineWidth: 15)
                     .opacity(0.3)
-                    .foregroundColor(.proteinOrange)
+                    .foregroundColor(.proteinPink)
                     .frame(width: 89.5, height: 89.5)
                 Circle()
                     .stroke(lineWidth: 15)
@@ -179,32 +179,32 @@ struct CalorieNutritionRingView: View {
                 Circle()
                     .stroke(lineWidth: 15)
                     .opacity(0.3)
-                    .foregroundColor(.fatPurple)
+                    .foregroundColor(.fatSkyBlue)
                     .frame(width: 28, height: 28)
             } else {
                 // Calorie Ring
                 let calorie = Float(energy.dietary) / Float(energy.active + energy.resting)
                 RingView(value: calorie,
-                         startColor: .intakeEnergyLightGreen,
-                         endColor: .intakeEnergyGreen,
+                         startColor: .intakeEnergyGreen,
+                         endColor: .intakeEnergyLightGreen,
                          lineWidth: 15,
                          size: 120)
                 
                 // Protein Ring
                 let protein = Float(basicNutrition.protein) / Float(basicNutritionGoal.protein)
-                RingView(value: protein, startColor: .proteinLightOrange, endColor: .proteinOrange,
+                RingView(value: protein, startColor: .proteinPink, endColor: .proteinLightPink,
                 lineWidth: 15,
                          size: 89.5)
                 
                 // Carbohydrates Ring
                 let carbohydrates = Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates)
-                RingView(value: carbohydrates, startColor: .carbohydratesLightBlue, endColor: .carbohydratesBlue,
+                RingView(value: carbohydrates, startColor: .carbohydratesBlue, endColor: .carbohydratesLightBlue,
                 lineWidth: 15,
                          size: 58.5)
                 
                 // Fat Ring
                 let fat = Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal)
-                RingView(value: fat, startColor: .fatLightPurple, endColor: .fatPurple,
+                RingView(value: fat, startColor: .fatSkyBlue, endColor: .fatLightSkyBlue,
                 lineWidth: 15,
                 size: 28)
             }
