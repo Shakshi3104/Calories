@@ -9,9 +9,8 @@ import SwiftUI
 
 // MARK: - CaloriesView
 struct CaloriesView: View {
-    var energy: Energy
-    var basicNutrition: BasicNutrition
     
+    @StateObject var healthModel: HealthModel
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     @State private var isPresented = false
@@ -21,17 +20,17 @@ struct CaloriesView: View {
             List {
                 Section("Calorie") {
                     NavigationLink {
-                        CalorieDetailView(energy: energy)
+                        CalorieDetailView(energy: healthModel.energy)
                     } label: {
-                        CalorieTopView(energy: energy)
+                        CalorieTopView(energy: healthModel.energy)
                     }
                 }
                 
                 Section("Nutrition") {
                     NavigationLink {
-                        NutritionDetailView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                        NutritionDetailView(basicNutrition: healthModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     } label: {
-                        NutritionTopView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                        NutritionTopView(basicNutrition: healthModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     }
                 }
             }
@@ -47,6 +46,10 @@ struct CaloriesView: View {
             }
             .sheet(isPresented: $isPresented) {
                 GoalSettingView(basicNutritionGoal: basicNutritionGoal)
+            }
+            .refreshable {
+                await healthModel.updateEnergy()
+                await healthModel.updateBasicNutrition()
             }
         }
     }
@@ -154,10 +157,7 @@ struct NutritionTopView: View {
 // MARK: - Preview
 struct CaloriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CaloriesView(energy: Energy(resting: 1500,
-                                          active: 200,
-                                          dietary: 1600),
-        basicNutrition: BasicNutrition(protein: 30, carbohydrates: 200, fatTotal: 20),
+        CaloriesView(healthModel: HealthModel(),
         basicNutritionGoal: BasicNutritionGoal())
         .preferredColorScheme(.dark)
         

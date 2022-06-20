@@ -129,7 +129,7 @@ extension HealthObserver {
     }
 }
 
-// MARK: - HealthObserver extension : async
+// MARK: - HealthObserver extension : Energy async
 extension HealthObserver {
     
     func getActiveEnergy() async  -> Int {
@@ -238,6 +238,34 @@ extension HealthObserver {
     }
 }
 
+// MARK: - HealthObserver extention: Nutrition async
+extension HealthObserver {
+    
+    func getProtein() async -> Int {
+        await withCheckedContinuation({ continuation in
+            getProtein { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+    
+    func getCabohydrates() async -> Int {
+        await withCheckedContinuation({ continuation in
+            getCarbohydrates { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+    
+    func getFatTotal() async -> Int {
+        await withCheckedContinuation({ continuation in
+            getFatTotal { value in
+                continuation.resume(returning: value)
+            }
+        })
+    }
+}
+
 // MARK: - HealthModel
 class HealthModel: ObservableObject {
     /// Published
@@ -246,18 +274,6 @@ class HealthModel: ObservableObject {
     
     /// Observer
     let healthObserver = HealthObserver()
-    
-    func updateEnergy() async {
-        let resting = await healthObserver.getRestingEnergy()
-        let active = await healthObserver.getActiveEnergy()
-        let dietary = await healthObserver.getDietaryEnergy()
-    
-        print("🍎 \(resting), \(active), \(dietary)")
-        
-        DispatchQueue.main.async {
-            self.energy = Energy(resting: resting, active: active, dietary: dietary)
-        }
-    }
     
     func updateEnergy() {
         healthObserver.getEnergyWithRequestingAuthorization { (resting, active, dietary) -> Void in
@@ -276,6 +292,33 @@ class HealthModel: ObservableObject {
             DispatchQueue.main.async {
                 self.basicNutrition = BasicNutrition(protein: protein, carbohydrates: carbohydrates, fatTotal: fatTotal)
             }
+        }
+    }
+}
+
+// MARK: - HealthModel extension: async
+extension HealthModel {
+    func updateEnergy() async {
+        let resting = await healthObserver.getRestingEnergy()
+        let active = await healthObserver.getActiveEnergy()
+        let dietary = await healthObserver.getDietaryEnergy()
+        
+        print("🍎🍎 \(resting), \(active), \(dietary)")
+        
+        DispatchQueue.main.async {
+            self.energy = Energy(resting: resting, active: active, dietary: dietary)
+        }
+    }
+    
+    func updateBasicNutrition() async {
+        let protein = await healthObserver.getProtein()
+        let carbohydrates = await healthObserver.getCabohydrates()
+        let fatTotal = await healthObserver.getFatTotal()
+        
+        print("🍇🍇 \(protein), \(carbohydrates), \(fatTotal)")
+        
+        DispatchQueue.main.async {
+            self.basicNutrition = BasicNutrition(protein: protein, carbohydrates: carbohydrates, fatTotal: fatTotal)
         }
     }
 }
