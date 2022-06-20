@@ -52,7 +52,7 @@ struct RingView: View {
             Circle()
                 .frame(width: lineWidth, height: lineWidth)
                 .offset(y: -size / 2.0)
-                .foregroundColor(value > 0.95 ? endColor : endColor.opacity(0))
+                .foregroundColor(value > 0.85 ? endColor : endColor.opacity(0))
                 .rotationEffect(Angle(degrees: 360 * Double(value)))
                 .animation(.linear, value: isShowed)
             

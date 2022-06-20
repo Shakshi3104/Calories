@@ -13,8 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            CaloriesView(energy: healthModel.energy,
-                         basicNutrition: healthModel.basicNutrition,
+            CaloriesView(healthModel: healthModel,
             basicNutritionGoal: basicNutritionGoal)
         }
     }
