@@ -14,6 +14,16 @@ struct CaloriesView: View {
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     @State private var isPresented = false
+    @State private var dateSelection = Date()
+    
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        
+        return dateFormatter
+    }()
     
     var body: some View {
         NavigationView {
@@ -34,22 +44,28 @@ struct CaloriesView: View {
                     }
                 }
             }
-            .navigationTitle("Calories")
+            // display selected day
+            .navigationTitle(dateFormatter.string(from: dateSelection))
             .toolbar {
+                // date selection
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isPresented.toggle()
                     } label: {
-                        Image(systemName: "gear")
+                        Image(systemName: "calendar")
                     }
                 }
             }
-            .sheet(isPresented: $isPresented) {
-                GoalSettingView(basicNutritionGoal: basicNutritionGoal)
-            }
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isPresented, onDismiss: {
+                healthModel.updateEnergy(date: dateSelection)
+                healthModel.updateBasicNutrition(date: dateSelection)
+            }, content: {
+                DateSelectionView(dateSelection: $dateSelection)
+            })
             .refreshable {
-                await healthModel.updateEnergy()
-                await healthModel.updateBasicNutrition()
+                await healthModel.updateEnergy(date: dateSelection)
+                await healthModel.updateBasicNutrition(date: dateSelection)
             }
         }
     }
@@ -150,6 +166,39 @@ struct NutritionTopView: View {
             }
         }
         .padding(.vertical, 15)
+    }
+}
+
+// MARK: - Date selection View
+struct DateSelectionView: View {
+    @Binding var dateSelection: Date
+    private let dateRange: ClosedRange<Date> = {
+        // startDate is the day when the original iPhone was released.
+        let startDate = DateComponents(year: 2007, month: 6, day: 29).date!
+        let endDate = Date()
+        return startDate...endDate
+    }()
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationView {
+            DatePicker("",
+                       selection: $dateSelection,
+                       in: dateRange,
+                       displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
+            }
+        }
     }
 }
 

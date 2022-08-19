@@ -12,6 +12,8 @@ struct NutritionDetailView: View {
     
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
+    @State private var isPresented = false
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -46,6 +48,18 @@ struct NutritionDetailView: View {
                 }
                 .padding()
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    isPresented.toggle()
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+        }
+        .sheet(isPresented: $isPresented) {
+            GoalSettingView(basicNutritionGoal: basicNutritionGoal)
         }
     }
 }

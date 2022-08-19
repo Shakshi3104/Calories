@@ -34,8 +34,9 @@ struct CaloriesTimeline: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<CaloriesEntry>) -> Void) {
         let refresh = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date()
         
-        HealthObserver().getEnergyWithRequestStatus { (resting, active, dietary) in
-            HealthObserver().getBasicNutritionWithRequestStatus { (protein, carbohydrates, fat) in
+        
+        HealthObserver().getEnergyWithRequestStatus(date: Date()) { (resting, active, dietary) in
+            HealthObserver().getBasicNutritionWithRequestStatus(date: Date()) { (protein, carbohydrates, fat) in
                 let entry = CaloriesEntry(resting: resting, active: active, dietary: dietary,
                                           protein: protein, carbohydrates: carbohydrates, fat: fat)
                 
