@@ -16,9 +16,11 @@ class HealthObserver {
         self.healthStore = HKHealthStore()
     }
     
-    private func getStatistics(quantityType: HKQuantityType, unit: HKUnit, completion: @escaping (Int) -> ()) {
-        let startDate = Calendar.current.startOfDay(for: Date())
-        let endDate = Date()
+    private func getStatistics(date: Date, quantityType: HKQuantityType, unit: HKUnit, completion: @escaping (Int) -> ()) {
+        let startDate = Calendar.current.startOfDay(for: date)
+        let endDate = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: startDate) ?? date)
+        
+        print("📆 start: \(startDate) - end: \(endDate)")
         
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
         let interval = DateComponents(day: 1)
@@ -51,42 +53,42 @@ class HealthObserver {
 // MARK: - HealthObserver extension : Energy
 extension HealthObserver {
     
-    func getActiveEnergy(completion: @escaping (Int) -> ()) {
+    func getActiveEnergy(date: Date, completion: @escaping (Int) -> ()) {
         let activeEnergy: HKQuantityType? = HKQuantityType(.activeEnergyBurned)
         
         if let activeEnergy = activeEnergy {
-            getStatistics(quantityType: activeEnergy, unit: .largeCalorie(), completion: completion)
+            getStatistics(date: date, quantityType: activeEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
-    func getDietaryEnergy(completion: @escaping (Int) -> ()) {
+    func getDietaryEnergy(date: Date, completion: @escaping (Int) -> ()) {
         let dietaryEnergy: HKQuantityType? = HKQuantityType(.dietaryEnergyConsumed)
         
         if let dietaryEnergy = dietaryEnergy {
-            getStatistics(quantityType: dietaryEnergy, unit: .largeCalorie(), completion: completion)
+            getStatistics(date: date, quantityType: dietaryEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
-    func getRestingEnergy(completion: @escaping (Int) -> ()) {
+    func getRestingEnergy(date: Date, completion: @escaping (Int) -> ()) {
         let baselEnergy: HKQuantityType? = HKQuantityType(.basalEnergyBurned)
         
         if let baselEnergy = baselEnergy {
-            getStatistics(quantityType: baselEnergy, unit: .largeCalorie(), completion: completion)
+            getStatistics(date: date, quantityType: baselEnergy, unit: .largeCalorie(), completion: completion)
         }
     }
     
     // MARK: - Energy
-    func getEnergy(completion: @escaping ((Int, Int, Int)) -> ()) {
-        self.getRestingEnergy { [self] resting in
-            self.getActiveEnergy { [self] active in
-                self.getDietaryEnergy { dietary in
+    func getEnergy(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
+        self.getRestingEnergy(date: date) { [self] resting in
+            self.getActiveEnergy(date: date) { [self] active in
+                self.getDietaryEnergy(date: date) { dietary in
                     completion((resting, active, dietary))
                 }
             }
         }
     }
     
-    func getEnergyWithRequestingAuthorization(completion: @escaping ((Int, Int, Int)) -> ()) {
+    func getEnergyWithRequestingAuthorization(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
         // The quantity types to read from the health store
         let typesToRead: Set = [
             HKQuantityType(.activeEnergyBurned),
@@ -100,12 +102,12 @@ extension HealthObserver {
                 print("Not allow")
             } else {
                 print("Success!")
-                self.getEnergy(completion: completion)
+                self.getEnergy(date: date, completion: completion)
             }
         }
     }
     
-    func getEnergyWithRequestStatus(completion: @escaping ((Int, Int, Int)) -> ()) {
+    func getEnergyWithRequestStatus(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
         // The quantity types to read from the health store
         let typesToRead: Set = [
             HKQuantityType(.activeEnergyBurned),
@@ -119,7 +121,7 @@ extension HealthObserver {
                 print("Calories has not yet requested authorization.")
             case .unnecessary:
                 print("Calories has already requested authorization.")
-                self.getEnergy(completion: completion)
+                self.getEnergy(date: date, completion: completion)
             case .unknown:
                 print("Unkown authorization request status")
             @unknown default:
@@ -132,25 +134,25 @@ extension HealthObserver {
 // MARK: - HealthObserver extension : Energy async
 extension HealthObserver {
     
-    func getActiveEnergy() async  -> Int {
+    func getActiveEnergy(date: Date) async  -> Int {
         await withCheckedContinuation({ continuation in
-            getActiveEnergy { value in
+            getActiveEnergy(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
     }
     
-    func getDietaryEnergy() async -> Int {
+    func getDietaryEnergy(date: Date) async -> Int {
         await withCheckedContinuation({ continuation in
-            getDietaryEnergy { value in
+            getDietaryEnergy(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
     }
     
-    func getRestingEnergy() async -> Int {
+    func getRestingEnergy(date: Date) async -> Int {
         await withCheckedContinuation({ continuation in
-            getRestingEnergy { value in
+            getRestingEnergy(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
@@ -160,42 +162,42 @@ extension HealthObserver {
 // MARK: - HealthObserver extension : Nutrition
 extension HealthObserver {
     
-    func getProtein(completion: @escaping (Int) -> ()) {
+    func getProtein(date: Date, completion: @escaping (Int) -> ()) {
         let protein: HKQuantityType? = HKQuantityType(.dietaryProtein)
         
         if let protein = protein {
-            getStatistics(quantityType: protein, unit: .gram(), completion: completion)
+            getStatistics(date: date, quantityType: protein, unit: .gram(), completion: completion)
         }
     }
     
-    func getCarbohydrates(completion: @escaping (Int) -> ()) {
+    func getCarbohydrates(date: Date, completion: @escaping (Int) -> ()) {
         let carbohydrates: HKQuantityType? = HKQuantityType(.dietaryCarbohydrates)
         
         if let carbohydrates = carbohydrates {
-            getStatistics(quantityType: carbohydrates, unit: .gram(), completion: completion)
+            getStatistics(date: date, quantityType: carbohydrates, unit: .gram(), completion: completion)
         }
     }
     
-    func getFatTotal(completion: @escaping (Int) -> ()) {
+    func getFatTotal(date: Date, completion: @escaping (Int) -> ()) {
         let fatTotal: HKQuantityType? = HKQuantityType(.dietaryFatTotal)
         
         if let fatTotal = fatTotal {
-            getStatistics(quantityType: fatTotal, unit: .gram(), completion: completion)
+            getStatistics(date: date, quantityType: fatTotal, unit: .gram(), completion: completion)
         }
     }
     
     // MARK: - Nutrition
-    func getBasicNutrition(completion: @escaping ((Int, Int, Int)) -> ()) {
-        self.getProtein { [self] protein in
-            self.getCarbohydrates { [self] carbohydrates in
-                self.getFatTotal { fatTotal in
+    func getBasicNutrition(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
+        self.getProtein(date: date) { [self] protein in
+            self.getCarbohydrates(date: date) { [self] carbohydrates in
+                self.getFatTotal(date: date) { fatTotal in
                     completion((protein, carbohydrates, fatTotal))
                 }
             }
         }
     }
     
-    func getBasicNutritionWithRequestingAuthorization(completion: @escaping ((Int, Int, Int)) -> ()) {
+    func getBasicNutritionWithRequestingAuthorization(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
         // The quantity types to read from the health store
         let typesToRead: Set = [
             HKQuantityType(.dietaryProtein),
@@ -209,12 +211,12 @@ extension HealthObserver {
                 print("Not allow")
             } else {
                 print("Success!")
-                self.getBasicNutrition(completion: completion)
+                self.getBasicNutrition(date: date, completion: completion)
             }
         }
     }
     
-    func getBasicNutritionWithRequestStatus(completion: @escaping ((Int, Int, Int)) -> ()) {
+    func getBasicNutritionWithRequestStatus(date: Date, completion: @escaping ((Int, Int, Int)) -> ()) {
         // The quantity types to read from the health store
         let typesToRead: Set = [
             HKQuantityType(.dietaryProtein),
@@ -228,7 +230,7 @@ extension HealthObserver {
                 print("Calories has not yet requested authorization.")
             case .unnecessary:
                 print("Calories has already requested authorization.")
-                self.getBasicNutrition(completion: completion)
+                self.getBasicNutrition(date: date, completion: completion)
             case .unknown:
                 print("Unkown authorization request status")
             @unknown default:
@@ -241,25 +243,25 @@ extension HealthObserver {
 // MARK: - HealthObserver extention: Nutrition async
 extension HealthObserver {
     
-    func getProtein() async -> Int {
+    func getProtein(date: Date) async -> Int {
         await withCheckedContinuation({ continuation in
-            getProtein { value in
+            getProtein(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
     }
     
-    func getCabohydrates() async -> Int {
+    func getCabohydrates(date: Date) async -> Int {
         await withCheckedContinuation({ continuation in
-            getCarbohydrates { value in
+            getCarbohydrates(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
     }
     
-    func getFatTotal() async -> Int {
+    func getFatTotal(date: Date) async -> Int {
         await withCheckedContinuation({ continuation in
-            getFatTotal { value in
+            getFatTotal(date: date) { value in
                 continuation.resume(returning: value)
             }
         })
@@ -275,8 +277,8 @@ class HealthModel: ObservableObject {
     /// Observer
     let healthObserver = HealthObserver()
     
-    func updateEnergy() {
-        healthObserver.getEnergyWithRequestingAuthorization { (resting, active, dietary) -> Void in
+    func updateEnergy(date: Date = Date()) {
+        healthObserver.getEnergyWithRequestingAuthorization(date: date) { (resting, active, dietary) -> Void in
             print("🍎 \(resting), \(active), \(dietary)")
             
             DispatchQueue.main.async {
@@ -285,8 +287,8 @@ class HealthModel: ObservableObject {
         }
     }
     
-    func updateBasicNutrition() {
-        healthObserver.getBasicNutritionWithRequestingAuthorization { (protein, carbohydrates, fatTotal) in
+    func updateBasicNutrition(date: Date = Date()) {
+        healthObserver.getBasicNutritionWithRequestingAuthorization(date: date) { (protein, carbohydrates, fatTotal) in
             print("🍇 \(protein), \(carbohydrates), \(fatTotal)")
             
             DispatchQueue.main.async {
@@ -298,10 +300,10 @@ class HealthModel: ObservableObject {
 
 // MARK: - HealthModel extension: async
 extension HealthModel {
-    func updateEnergy() async {
-        let resting = await healthObserver.getRestingEnergy()
-        let active = await healthObserver.getActiveEnergy()
-        let dietary = await healthObserver.getDietaryEnergy()
+    func updateEnergy(date: Date = Date()) async {
+        let resting = await healthObserver.getRestingEnergy(date: date)
+        let active = await healthObserver.getActiveEnergy(date: date)
+        let dietary = await healthObserver.getDietaryEnergy(date: date)
         
         print("🍎🍎 \(resting), \(active), \(dietary)")
         
@@ -310,10 +312,10 @@ extension HealthModel {
         }
     }
     
-    func updateBasicNutrition() async {
-        let protein = await healthObserver.getProtein()
-        let carbohydrates = await healthObserver.getCabohydrates()
-        let fatTotal = await healthObserver.getFatTotal()
+    func updateBasicNutrition(date: Date = Date()) async {
+        let protein = await healthObserver.getProtein(date: date)
+        let carbohydrates = await healthObserver.getCabohydrates(date: date)
+        let fatTotal = await healthObserver.getFatTotal(date: date)
         
         print("🍇🍇 \(protein), \(carbohydrates), \(fatTotal)")
         
