@@ -174,9 +174,9 @@ struct DateSelectionView: View {
     @Binding var dateSelection: Date
     private let dateRange: ClosedRange<Date> = {
         // startDate is the day when the original iPhone was released.
-        let startDate = DateComponents(year: 2007, month: 6, day: 29).date!
+        let startDate = DateComponents(year: 2007, month: 6, day: 29)
         let endDate = Date()
-        return startDate...endDate
+        return Calendar.current.date(from: startDate)!...endDate
     }()
     
     @Environment(\.dismiss) private var dismiss
