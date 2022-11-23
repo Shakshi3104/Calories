@@ -9,6 +9,12 @@ You can check if you have taken too much energy or nutrition from food.
 
 ![](materials/screenshots_v3.png)
 
+## Widgets
+
+Calories provides home screen and lock screen widgets.
+
+![](materials/screenshots_widget.png)
+
 ## Requirements
 
 - Xcode 13.0+

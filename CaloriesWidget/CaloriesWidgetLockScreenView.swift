@@ -111,7 +111,7 @@ struct CalorieBasicNutritionLockScreenCircularView: View {
     
     var body: some View {
         CaloriesWidgetSmallView(energy: energy, basicNutrition: basicNutrition)
-            .scaleEffect(0.5)
+            .scaleEffect(0.55)
     }
 }
 
