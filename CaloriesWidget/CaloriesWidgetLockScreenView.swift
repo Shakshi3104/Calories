@@ -37,6 +37,71 @@ struct CalorieLockScreenCircularView: View {
     }
 }
 
+// MARK: Basic Nutrition for accesoryCircular
+@available(iOSApplicationExtension 16.0, *)
+struct BasicNutritionLockScreenCircularView: View {
+    @Environment(\.redactionReasons) var redactionReasons
+    
+    var value: Int
+    var goal: Int
+    var systemName: String
+    
+    var body: some View {
+        if redactionReasons.contains(.privacy) {
+            Gauge(value: 0.0) {
+                Image(systemName: systemName)
+            }
+            .gaugeStyle(.accessoryCircular)
+        } else {
+            Gauge(value: Float(value), in: 0...Float(goal)) {
+                Image(systemName: systemName)
+            } currentValueLabel: {
+                Text("\(value)")
+            } minimumValueLabel: {
+                Text("0")
+            } maximumValueLabel: {
+                Text("\(goal)")
+            }
+            .gaugeStyle(.accessoryCircular)
+        }
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct ProteinLockScreenCircularView: View {
+    var basicNutrition: BasicNutrition
+    
+    // Basic nutrition goal
+    var basicNutritionGoal = BasicNutritionGoal()
+    
+    var body: some View {
+        BasicNutritionLockScreenCircularView(value: basicNutrition.protein, goal: basicNutritionGoal.protein, systemName: "circlebadge.2")
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct CarbohydratesLockScreenCircularView: View {
+    var basicNutrition: BasicNutrition
+    
+    // Basic nutrition goal
+    var basicNutritionGoal = BasicNutritionGoal()
+    
+    var body: some View {
+        BasicNutritionLockScreenCircularView(value: basicNutrition.carbohydrates, goal: basicNutritionGoal.carbohydrates, systemName: "speedometer")
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct FatLockScreenCircularView: View {
+    var basicNutrition: BasicNutrition
+    
+    // Basic nutrition goal
+    var basicNutritionGoal = BasicNutritionGoal()
+    
+    var body: some View {
+        BasicNutritionLockScreenCircularView(value: basicNutrition.fatTotal, goal: basicNutritionGoal.fatTotal, systemName: "scalemass")
+    }
+}
 
 // MARK: - Calorie and Basic Nutrition for accessoryCircular
 struct CalorieBasicNutritionLockScreenCircularView: View {
@@ -114,6 +179,19 @@ struct CaloriesWidgetLockScreenView_Previews: PreviewProvider {
                 CalorieLockScreenCircularView(energy: energy)
                     .preferredColorScheme(.dark)
                     .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+                
+                ProteinLockScreenCircularView(basicNutrition: basicNutrition)
+                    .preferredColorScheme(.dark)
+                    .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+                
+                CarbohydratesLockScreenCircularView(basicNutrition: basicNutrition)
+                    .preferredColorScheme(.dark)
+                    .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+                
+                FatLockScreenCircularView(basicNutrition: basicNutrition)
+                    .preferredColorScheme(.dark)
+                    .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+                
             }
         } else {
             // Fallback on earlier versions

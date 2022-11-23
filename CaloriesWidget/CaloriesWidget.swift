@@ -73,6 +73,7 @@ struct CalorieNutritionWidget: Widget {
 }
 
 // MARK: - Lock screen
+// MARK: - Calorie
 @available(iOSApplicationExtension 16.0, *)
 struct CalorieLockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
@@ -102,6 +103,98 @@ struct CalorieLockScreenWidget: Widget {
     }
 }
 
+// MARK: - Protein
+@available(iOSApplicationExtension 16.0, *)
+struct ProteinLockScreenWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+    @State var entry: CaloriesEntry
+    
+    var body: some View {
+        switch family {
+        case .accessoryCircular:
+            ProteinLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        default:
+            ProteinLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        }
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct ProteinLockScreenWidget: Widget {
+    let kind: String = "Protein Single"
+    
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
+            ProteinLockScreenWidgetEntryView(entry: entry)
+        }
+        .configurationDisplayName("Calorie")
+        .description("See your intake protein.")
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
+// MARK: - Carbohydrates
+@available(iOSApplicationExtension 16.0, *)
+struct CarbohydratesLockScreenWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+    @State var entry: CaloriesEntry
+    
+    var body: some View {
+        switch family {
+        case .accessoryCircular:
+            CarbohydratesLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        default:
+            CarbohydratesLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        }
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct CarbohydratesLockScreenWidget: Widget {
+    let kind: String = "Carbohydrates Single"
+    
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
+            CarbohydratesLockScreenWidgetEntryView(entry: entry)
+        }
+        .configurationDisplayName("Calorie")
+        .description("See your intake carbohydrates.")
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
+// MARK: - Fat
+@available(iOSApplicationExtension 16.0, *)
+struct FatLockScreenWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+    @State var entry: CaloriesEntry
+    
+    var body: some View {
+        switch family {
+        case .accessoryCircular:
+            FatLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        default:
+            FatLockScreenCircularView(basicNutrition: entry.basicNutrition)
+        }
+    }
+}
+
+@available(iOSApplicationExtension 16.0, *)
+struct FatLockScreenWidget: Widget {
+    let kind: String = "Fat Single"
+    
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
+            FatLockScreenWidgetEntryView(entry: entry)
+        }
+        .configurationDisplayName("Calorie")
+        .description("See your intake fat.")
+        .supportedFamilies([.accessoryCircular])
+    }
+}
+
+
+// MARK: -
 @main
 struct CaloriesWidgets: WidgetBundle {
     @WidgetBundleBuilder
@@ -109,6 +202,9 @@ struct CaloriesWidgets: WidgetBundle {
         CalorieNutritionWidget()
         if #available(iOSApplicationExtension 16.0, *) {
             CalorieLockScreenWidget()
+            ProteinLockScreenWidget()
+            CarbohydratesLockScreenWidget()
+            FatLockScreenWidget()
         }
     }
 }
