@@ -19,9 +19,12 @@ struct CaloriesView: View {
     @State private var isToday = true
     
     private let dateFormatter: DateFormatter = {
+        let locale: Locale = .current
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy/MM/dd")
         dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         
         return dateFormatter
