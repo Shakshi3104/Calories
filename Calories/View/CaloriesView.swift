@@ -97,10 +97,6 @@ struct CaloriesView: View {
             }, content: {
                 DateSelectionView(dateSelection: $dateSelection)
             })
-            .refreshable {
-                await healthModel.updateEnergy(date: dateSelection)
-                await healthModel.updateBasicNutrition(date: dateSelection)
-            }
             .onAppear {
                 isToday = Calendar.current.isDateInToday(dateSelection)
             }
