@@ -37,7 +37,7 @@ struct CalorieLockScreenCircularView: View {
     }
 }
 
-// MARK: Basic Nutrition for accesoryCircular
+// MARK: - Basic Nutrition for accesoryCircular
 @available(iOSApplicationExtension 16.0, *)
 struct BasicNutritionLockScreenCircularView: View {
     @Environment(\.redactionReasons) var redactionReasons
@@ -104,14 +104,77 @@ struct FatLockScreenCircularView: View {
 }
 
 // MARK: - Calorie and Basic Nutrition for accessoryCircular
+struct CalorieNutritionRingViewForLockScreen: View {
+    @Environment(\.redactionReasons) var redactionReasons
+    
+    var energy: Energy
+    var basicNutrition: BasicNutrition
+    
+    // Basic nutrition goal
+    var basicNutritionGoal = BasicNutritionGoal()
+    
+    var body: some View {
+        ZStack {
+            if redactionReasons.contains(.privacy) {
+                Circle()
+                    .stroke(lineWidth: 5)
+                    .opacity(0.3)
+                    .foregroundColor(.intakeEnergyGreen)
+                    .frame(width: 51, height: 51)
+                Circle()
+                    .stroke(lineWidth: 5)
+                    .opacity(0.3)
+                    .foregroundColor(.proteinPink)
+                    .frame(width: 39, height: 39)
+                Circle()
+                    .stroke(lineWidth: 5)
+                    .opacity(0.3)
+                    .foregroundColor(.carbohydratesBlue)
+                    .frame(width: 27, height: 27)
+                Circle()
+                    .stroke(lineWidth: 5)
+                    .opacity(0.3)
+                    .foregroundColor(.fatSkyBlue)
+                    .frame(width: 15, height: 15)
+            } else {
+                // Calorie Ring
+                let calorie = Float(energy.dietary) / Float(energy.active + energy.resting)
+                RingView(value: calorie,
+                         startColor: .intakeEnergyGreen,
+                         endColor: .intakeEnergyLightGreen,
+                         lineWidth: 5,
+                         size: 51)
+                
+                // Protein Ring
+                let protein = Float(basicNutrition.protein) / Float(basicNutritionGoal.protein)
+                RingView(value: protein, startColor: .proteinPink, endColor: .proteinLightPink,
+                         lineWidth: 5,
+                         size: 39)
+                
+                // Carbohydrates Ring
+                let carbohydrates = Float(basicNutrition.carbohydrates) / Float(basicNutritionGoal.carbohydrates)
+                RingView(value: carbohydrates, startColor: .carbohydratesBlue, endColor: .carbohydratesLightBlue,
+                         lineWidth: 5,
+                         size: 27)
+                
+                // Fat Ring
+                let fat = Float(basicNutrition.fatTotal) / Float(basicNutritionGoal.fatTotal)
+                RingView(value: fat, startColor: .fatSkyBlue, endColor: .fatLightSkyBlue,
+                         lineWidth: 5,
+                         size: 15)
+            }
+        }
+    }
+}
+
+
 struct CalorieBasicNutritionLockScreenCircularView: View {
     
     var energy: Energy
     var basicNutrition: BasicNutrition
     
     var body: some View {
-        CaloriesWidgetSmallView(energy: energy, basicNutrition: basicNutrition)
-            .scaleEffect(0.55)
+        CalorieNutritionRingViewForLockScreen(energy: energy, basicNutrition: basicNutrition)
     }
 }
 
@@ -191,7 +254,6 @@ struct CaloriesWidgetLockScreenView_Previews: PreviewProvider {
                 FatLockScreenCircularView(basicNutrition: basicNutrition)
                     .preferredColorScheme(.dark)
                     .previewContext(WidgetPreviewContext(family: .accessoryCircular))
-                
             }
         } else {
             // Fallback on earlier versions
