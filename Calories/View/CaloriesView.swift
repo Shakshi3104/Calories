@@ -16,10 +16,15 @@ struct CaloriesView: View {
     @State private var isPresented = false
     @State private var dateSelection = Date()
     
+    @State private var isToday = true
+    
     private let dateFormatter: DateFormatter = {
+        let locale: Locale = .current
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy/MM/dd")
         dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         
         return dateFormatter
@@ -47,6 +52,38 @@ struct CaloriesView: View {
             // display selected day
             .navigationTitle(dateFormatter.string(from: dateSelection))
             .toolbar {
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        // date add
+                        dateSelection = Calendar.current.date(byAdding: .day, value: -1, to: dateSelection)!
+                        // is today
+                        isToday = Calendar.current.isDateInToday(dateSelection)
+                        
+                        // update
+                        healthModel.updateEnergy(date: dateSelection)
+                        healthModel.updateBasicNutrition(date: dateSelection)
+                    } label: {
+                        Image(systemName: "arrowtriangle.backward.fill")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        // date add
+                        dateSelection = Calendar.current.date(byAdding: .day, value: 1, to: dateSelection)!
+                        // is today
+                        isToday = Calendar.current.isDateInToday(dateSelection)
+                        
+                        // update
+                        healthModel.updateEnergy(date: dateSelection)
+                        healthModel.updateBasicNutrition(date: dateSelection)
+                    } label: {
+                        Image(systemName: "arrowtriangle.forward.fill")
+                    }
+                    .disabled(isToday)
+                }
+                
                 // date selection
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -63,9 +100,8 @@ struct CaloriesView: View {
             }, content: {
                 DateSelectionView(dateSelection: $dateSelection)
             })
-            .refreshable {
-                await healthModel.updateEnergy(date: dateSelection)
-                await healthModel.updateBasicNutrition(date: dateSelection)
+            .onAppear {
+                isToday = Calendar.current.isDateInToday(dateSelection)
             }
         }
     }
