@@ -25,12 +25,13 @@ struct CalorieLockScreenCircularView: View {
             Gauge(value: Float(energy.dietary), in: 0...Float((energy.resting + energy.active))) {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
             } currentValueLabel: {
-                Text("\(energy.dietary)")
+                Text("\(energy.ingestible)")
             } minimumValueLabel: {
                 Text("0")
             } maximumValueLabel: {
-                let activeCal = Double(energy.resting + energy.active) / 1000.0
-                Text(String(format: "%.1f", activeCal) + "k")
+                let activeCal = energy.resting + energy.active
+                let label = activeCal < 1000 ? "\(activeCal)" : String(format: "%.1f", Double(activeCal) / 1000.0) + "k"
+                Text(label)
             }
             .gaugeStyle(.accessoryCircular)
         }

@@ -20,7 +20,7 @@
 		CE6E09A727C32A9C008D83B9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E09A627C32A9C008D83B9 /* SwiftUI.framework */; };
 		CE6E09AA27C32A9C008D83B9 /* CaloriesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09A927C32A9C008D83B9 /* CaloriesWidget.swift */; };
 		CE6E09AC27C32A9D008D83B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6E09AB27C32A9D008D83B9 /* Assets.xcassets */; };
-		CE6E09B027C32A9D008D83B9 /* CaloriesWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE6E09A227C32A9C008D83B9 /* CaloriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CE6E09B027C32A9D008D83B9 /* CaloriesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CE6E09A227C32A9C008D83B9 /* CaloriesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE6E09B727C32AB8008D83B9 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E09B627C32AB8008D83B9 /* HealthKit.framework */; };
 		CE6E09B927C32AD5008D83B9 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6E09B627C32AB8008D83B9 /* HealthKit.framework */; };
 		CE6E09BB27C32D73008D83B9 /* HealthValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */; };
@@ -49,15 +49,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CE6E09B427C32A9D008D83B9 /* Embed App Extensions */ = {
+		CE6E09B427C32A9D008D83B9 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				CE6E09B027C32A9D008D83B9 /* CaloriesWidgetExtension.appex in Embed App Extensions */,
+				CE6E09B027C32A9D008D83B9 /* CaloriesWidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -229,7 +229,7 @@
 				CE6E098927C32A77008D83B9 /* Sources */,
 				CE6E098A27C32A77008D83B9 /* Frameworks */,
 				CE6E098B27C32A77008D83B9 /* Resources */,
-				CE6E09B427C32A9D008D83B9 /* Embed App Extensions */,
+				CE6E09B427C32A9D008D83B9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -266,7 +266,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					CE6E098C27C32A77008D83B9 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -504,7 +504,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -539,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -569,7 +569,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.1;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories.CaloriesWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -600,7 +600,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.1;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories.CaloriesWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
