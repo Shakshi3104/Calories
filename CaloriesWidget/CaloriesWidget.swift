@@ -98,7 +98,7 @@ struct CalorieLockScreenWidget: Widget {
             CalorieLockScreenWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Calorie")
-        .description("See your intake energy.")
+        .description("See your ingestible energy.")
         .supportedFamilies([.accessoryCircular])
     }
 }
