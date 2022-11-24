@@ -95,8 +95,12 @@ struct CaloriesView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresented, onDismiss: {
+                // Update
                 healthModel.updateEnergy(date: dateSelection)
                 healthModel.updateBasicNutrition(date: dateSelection)
+                
+                // is today
+                isToday = Calendar.current.isDateInToday(dateSelection)
             }, content: {
                 DateSelectionView(dateSelection: $dateSelection)
             })
