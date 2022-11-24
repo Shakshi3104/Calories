@@ -29,8 +29,9 @@ struct CalorieLockScreenCircularView: View {
             } minimumValueLabel: {
                 Text("0")
             } maximumValueLabel: {
-                let activeCal = Double(energy.resting + energy.active) / 1000.0
-                Text(String(format: "%.1f", activeCal) + "k")
+                let activeCal = energy.resting + energy.active
+                let label = activeCal < 1000 ? "\(activeCal)" : String(format: "%.1f", Double(activeCal) / 1000.0) + "k"
+                Text(label)
             }
             .gaugeStyle(.accessoryCircular)
         }
