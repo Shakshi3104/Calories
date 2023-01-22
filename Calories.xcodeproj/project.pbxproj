@@ -32,6 +32,7 @@
 		CE78E82D2855A224001DE399 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78E82C2855A224001DE399 /* CaloriesView.swift */; };
 		CE78E82F2855EA00001DE399 /* CalorieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78E82E2855EA00001DE399 /* CalorieDetailView.swift */; };
 		CE78E8332855F67E001DE399 /* NutritionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78E8322855F67E001DE399 /* NutritionDetailView.swift */; };
+		CE794226297D31E600C9499C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE794225297D31E600C9499C /* ViewModel.swift */; };
 		CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE82CE3D27C47BC7001208D1 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */; };
 		CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95414A27C3825A00DEB186 /* CaloriesWidgetView.swift */; };
@@ -88,6 +89,7 @@
 		CE78E82C2855A224001DE399 /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
 		CE78E82E2855EA00001DE399 /* CalorieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieDetailView.swift; sourceTree = "<group>"; };
 		CE78E8322855F67E001DE399 /* NutritionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionDetailView.swift; sourceTree = "<group>"; };
+		CE794225297D31E600C9499C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		CE7FFAE628AF897D00E51164 /* icon_v3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_v3.png; sourceTree = "<group>"; };
 		CE7FFAE728AF8A2700E51164 /* screenshots_v3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots_v3.png; sourceTree = "<group>"; };
 		CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -213,8 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				CE6E09BE27C33198008D83B9 /* Energy.swift */,
-				CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */,
 				CE4F92272854B299007187E7 /* Nutrition.swift */,
+				CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */,
+				CE794225297D31E600C9499C /* ViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */,
 				CEF2466428575D8700D9883C /* GoalSettingView.swift in Sources */,
 				CE78E8332855F67E001DE399 /* NutritionDetailView.swift in Sources */,
+				CE794226297D31E600C9499C /* ViewModel.swift in Sources */,
 				CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */,
 				CE6E09C127C34C0A008D83B9 /* HealthObserver.swift in Sources */,
 				CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */,

@@ -13,7 +13,8 @@ struct CalorieDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
+                let value = energy.dietary > 0 ? Float(energy.dietary) / Float(energy.active + energy.resting) : 0.0
+                RingView(value: value,
                          startColor: .intakeEnergyGreen,
                          endColor: .intakeEnergyLightGreen,
                          lineWidth: 30,
