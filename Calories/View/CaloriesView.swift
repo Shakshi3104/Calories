@@ -10,12 +10,10 @@ import SwiftUI
 // MARK: - CaloriesView
 struct CaloriesView: View {
     
-    @StateObject var healthModel: HealthModel
+    @StateObject var viewModel: CaloriesViewModel
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     @State private var isPresented = false
-    @State private var dateSelection = Date()
-    
     @State private var isToday = true
     
     private let dateFormatter: DateFormatter = {
@@ -35,34 +33,31 @@ struct CaloriesView: View {
             List {
                 Section("Calorie") {
                     NavigationLink {
-                        CalorieDetailView(energy: healthModel.energy)
+                        CalorieDetailView(energy: viewModel.energy)
                     } label: {
-                        CalorieTopView(energy: healthModel.energy)
+                        CalorieTopView(energy: viewModel.energy)
                     }
                 }
                 
                 Section("Nutrition") {
                     NavigationLink {
-                        NutritionDetailView(basicNutrition: healthModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                        NutritionDetailView(basicNutrition: viewModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     } label: {
-                        NutritionTopView(basicNutrition: healthModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                        NutritionTopView(basicNutrition: viewModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     }
                 }
             }
             // display selected day
-            .navigationTitle(dateFormatter.string(from: dateSelection))
+            .navigationTitle(dateFormatter.string(from: viewModel.dateSelection))
             .toolbar {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         // date add
-                        dateSelection = Calendar.current.date(byAdding: .day, value: -1, to: dateSelection)!
-                        // is today
-                        isToday = Calendar.current.isDateInToday(dateSelection)
+                        viewModel.dateSelection = Calendar.current.date(byAdding: .day, value: -1, to: viewModel.dateSelection)!
                         
-                        // update
-                        healthModel.updateEnergy(date: dateSelection)
-                        healthModel.updateBasicNutrition(date: dateSelection)
+                        // update energy, basic nutrition, and isToday
+                        updateEnergyBasicNutritionIsToday()
                     } label: {
                         Image(systemName: "arrowtriangle.backward.fill")
                     }
@@ -71,13 +66,10 @@ struct CaloriesView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         // date add
-                        dateSelection = Calendar.current.date(byAdding: .day, value: 1, to: dateSelection)!
-                        // is today
-                        isToday = Calendar.current.isDateInToday(dateSelection)
+                        viewModel.dateSelection = Calendar.current.date(byAdding: .day, value: 1, to: viewModel.dateSelection)!
                         
-                        // update
-                        healthModel.updateEnergy(date: dateSelection)
-                        healthModel.updateBasicNutrition(date: dateSelection)
+                        // update energy, basic nutrition, and isToday
+                        updateEnergyBasicNutritionIsToday()
                     } label: {
                         Image(systemName: "arrowtriangle.forward.fill")
                     }
@@ -95,19 +87,27 @@ struct CaloriesView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresented, onDismiss: {
-                // Update
-                healthModel.updateEnergy(date: dateSelection)
-                healthModel.updateBasicNutrition(date: dateSelection)
-                
-                // is today
-                isToday = Calendar.current.isDateInToday(dateSelection)
+                // update energy, basic nutrition, and isToday
+                updateEnergyBasicNutritionIsToday()
             }, content: {
-                DateSelectionView(dateSelection: $dateSelection)
+                DateSelectionView(dateSelection: $viewModel.dateSelection)
             })
             .onAppear {
-                isToday = Calendar.current.isDateInToday(dateSelection)
+                isToday = Calendar.current.isDateInToday(viewModel.dateSelection)
             }
         }
+    }
+}
+
+// MARK: -
+extension CaloriesView {
+    func updateEnergyBasicNutritionIsToday() {
+        // update
+        viewModel.updateEnergy()
+        viewModel.updateBasicNutrition()
+        
+        // is today
+        isToday = Calendar.current.isDateInToday(viewModel.dateSelection)
     }
 }
 
@@ -119,7 +119,8 @@ struct CalorieTopView: View {
     
     var body: some View {
         HStack(spacing: 25) {
-            RingView(value: Float(energy.dietary) / Float(energy.active + energy.resting),
+            let value = energy.dietary > 0 ? Float(energy.dietary) / Float(energy.active + energy.resting) : 0.0
+            RingView(value: value,
                      startColor: .intakeEnergyGreen,
                      endColor: .intakeEnergyLightGreen,
                      lineWidth: 20)
@@ -246,9 +247,7 @@ struct DateSelectionView: View {
 // MARK: - Preview
 struct CaloriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CaloriesView(healthModel: HealthModel(),
-        basicNutritionGoal: BasicNutritionGoal())
-        .preferredColorScheme(.dark)
-        
+        CaloriesView(viewModel: CaloriesViewModel(),
+                     basicNutritionGoal: BasicNutritionGoal())
     }
 }
