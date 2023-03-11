@@ -11,9 +11,9 @@ import Foundation
 final class CaloriesViewModel: ObservableObject {
     // Published
     /// Energy
-    @Published var energy: Energy = Energy(resting: 0, active: 0, dietary: 0)
+    @Published var energy = Energy(resting: 0, active: 0, dietary: 0)
     /// Basic Nutrition
-    @Published var basicNutrition: BasicNutrition = BasicNutrition(protein: 0, carbohydrates: 0, fatTotal: 0)
+    @Published var basicNutrition = BasicNutrition(protein: 0, carbohydrates: 0, fatTotal: 0)
     
     /// date selection
     @Published var dateSelection = Date()
