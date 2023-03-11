@@ -16,18 +16,6 @@ struct CaloriesView: View {
     @State private var isPresented = false
     @State private var isToday = true
     
-    private let dateFormatter: DateFormatter = {
-        let locale: Locale = .current
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = locale
-        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy/MM/dd")
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
-        return dateFormatter
-    }()
-    
     var body: some View {
         NavigationView {
             List {
@@ -48,7 +36,9 @@ struct CaloriesView: View {
                 }
             }
             // display selected day
-            .navigationTitle(dateFormatter.string(from: viewModel.dateSelection))
+            .navigationTitle(viewModel.dateSelection.formatted(
+                Date.FormatStyle().month(.twoDigits).day(.twoDigits).weekday()
+            ))
             .toolbar {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
