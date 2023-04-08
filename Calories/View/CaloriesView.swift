@@ -53,6 +53,15 @@ struct CaloriesView: View {
                     }
                 }
                 
+                // date selection
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isPresented.toggle()
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         // date add
@@ -64,15 +73,6 @@ struct CaloriesView: View {
                         Image(systemName: "arrowtriangle.forward.fill")
                     }
                     .disabled(isToday)
-                }
-                
-                // date selection
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        isPresented.toggle()
-                    } label: {
-                        Image(systemName: "calendar")
-                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
