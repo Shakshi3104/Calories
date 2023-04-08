@@ -19,7 +19,7 @@ struct CaloriesView: View {
     var body: some View {
         NavigationView {
             List {
-                Section("Calorie") {
+                Section("Energy") {
                     NavigationLink {
                         CalorieDetailView(energy: viewModel.energy)
                     } label: {
