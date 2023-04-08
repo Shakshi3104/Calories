@@ -199,11 +199,11 @@
 		CE6E09BC27C3317B008D83B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CE6E099227C32A77008D83B9 /* ContentView.swift */,
-				CE78E82C2855A224001DE399 /* CaloriesView.swift */,
 				CE82CE3B27C47B6B001208D1 /* Color+Extension.swift */,
 				CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */,
 				CE4F92252854AB6D007187E7 /* RingView.swift */,
+				CE6E099227C32A77008D83B9 /* ContentView.swift */,
+				CE78E82C2855A224001DE399 /* CaloriesView.swift */,
 				CE78E82E2855EA00001DE399 /* CalorieDetailView.swift */,
 				CE78E8322855F67E001DE399 /* NutritionDetailView.swift */,
 				CEF2466328575D8700D9883C /* GoalSettingView.swift */,
