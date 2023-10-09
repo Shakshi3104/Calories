@@ -28,6 +28,9 @@ struct CaloriesWidgetMediumView: View {
             }
             .padding(.leading, 20)
         }
+        .containerBackground(for: .widget) {
+            Color.clear
+        }
     }
 }
 
@@ -40,6 +43,9 @@ struct CaloriesWidgetSmallView: View {
         CalorieNutritionRingView(energy: energy,
                                  basicNutrition: basicNutrition)
             .scaleEffect(0.8)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
     }
 }
 
@@ -60,7 +66,6 @@ struct EnergySmallView: View {
                 .font(.system(.body, design: .rounded))
                 .fontWeight(.medium)
                 .padding(.bottom, 1)
-                
         }
     }
 }

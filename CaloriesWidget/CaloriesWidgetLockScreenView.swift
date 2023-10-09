@@ -21,6 +21,9 @@ struct CalorieLockScreenCircularView: View {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         } else {
             Gauge(value: Float(energy.dietary), in: 0...Float((energy.resting + energy.active))) {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
@@ -34,6 +37,9 @@ struct CalorieLockScreenCircularView: View {
                 Text(label)
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         }
     }
 }
@@ -53,6 +59,9 @@ struct BasicNutritionLockScreenCircularView: View {
                 Image(systemName: systemName)
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         } else {
             Gauge(value: Float(value), in: 0...Float(goal)) {
                 Image(systemName: systemName)
@@ -64,6 +73,9 @@ struct BasicNutritionLockScreenCircularView: View {
                 Text("\(goal)")
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         }
     }
 }
@@ -176,6 +188,9 @@ struct CalorieBasicNutritionLockScreenCircularView: View {
     
     var body: some View {
         CalorieNutritionRingViewForLockScreen(energy: energy, basicNutrition: basicNutrition)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
     }
 }
 
@@ -220,6 +235,9 @@ struct BasicNutritionLockScreenRectangleView: View {
                     Text("\(basicNutrition.fatTotal)/\(basicNutritionGoal.fatTotal) g")
                 }
             }
+        }
+        .containerBackground(for: .widget) {
+            Color.clear
         }
     }
 }
