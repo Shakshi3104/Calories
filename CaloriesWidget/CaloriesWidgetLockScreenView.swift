@@ -21,6 +21,9 @@ struct CalorieLockScreenCircularView: View {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         } else {
             Gauge(value: Float(energy.dietary), in: 0...Float((energy.resting + energy.active))) {
                 Image(systemName: "takeoutbag.and.cup.and.straw")
@@ -34,6 +37,9 @@ struct CalorieLockScreenCircularView: View {
                 Text(label)
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         }
     }
 }
@@ -53,6 +59,9 @@ struct BasicNutritionLockScreenCircularView: View {
                 Image(systemName: systemName)
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         } else {
             Gauge(value: Float(value), in: 0...Float(goal)) {
                 Image(systemName: systemName)
@@ -64,6 +73,9 @@ struct BasicNutritionLockScreenCircularView: View {
                 Text("\(goal)")
             }
             .gaugeStyle(.accessoryCircular)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
         }
     }
 }
@@ -176,6 +188,9 @@ struct CalorieBasicNutritionLockScreenCircularView: View {
     
     var body: some View {
         CalorieNutritionRingViewForLockScreen(energy: energy, basicNutrition: basicNutrition)
+            .containerBackground(for: .widget) {
+                Color.clear
+            }
     }
 }
 
@@ -190,41 +205,91 @@ struct BasicNutritionLockScreenRectangleView: View {
     var basicNutritionGoal = BasicNutritionGoal()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Image(systemName: "circlebadge.2")
-                    .font(.body)
-                if redactionReasons.contains(.privacy) {
-                    Text("--/-- g")
-                } else {
-                    Text("\(basicNutrition.protein)/\(basicNutritionGoal.protein) g")
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "circlebadge.2")
+                        .font(.body)
+                    if redactionReasons.contains(.privacy) {
+                        Text("--/-- g")
+                    } else {
+                        Text("\(basicNutrition.protein)/\(basicNutritionGoal.protein) g")
+                    }
+                }
+                
+                HStack {
+                    Image(systemName: "speedometer")
+                        .font(.body)
+                    if redactionReasons.contains(.privacy) {
+                        Text("--/-- g")
+                    } else {
+                        Text("\(basicNutrition.carbohydrates)/\(basicNutritionGoal.carbohydrates) g")
+                    }
+                }
+                
+                HStack {
+                    Image(systemName: "scalemass")
+                        .font(.body)
+                    if redactionReasons.contains(.privacy) {
+                        Text("--/-- g")
+                    } else {
+                        Text("\(basicNutrition.fatTotal)/\(basicNutritionGoal.fatTotal) g")
+                    }
                 }
             }
-            
-            HStack {
-                Image(systemName: "speedometer")
-                    .font(.body)
-                if redactionReasons.contains(.privacy) {
-                    Text("--/-- g")
-                } else {
-                    Text("\(basicNutrition.carbohydrates)/\(basicNutritionGoal.carbohydrates) g")
-                }
-            }
-            
-            HStack {
-                Image(systemName: "scalemass")
-                    .font(.body)
-                if redactionReasons.contains(.privacy) {
-                    Text("--/-- g")
-                } else {
-                    Text("\(basicNutrition.fatTotal)/\(basicNutritionGoal.fatTotal) g")
-                }
-            }
+            Spacer()
+        }
+        .containerBackground(for: .widget) {
+            Color.clear
         }
     }
 }
 
+// MARK: - Calorie for accesoryRectangular
+struct CalorieLockScreenRectangleView: View {
+    @Environment(\.redactionReasons) var redactionReasons
+    
+    var energy: Energy
+    
+    var body: some View {
+       
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "fork.knife")
+                    .font(.body)
+                Text("Meal")
+                    .fontWeight(.bold)
+                Spacer()
+                    .frame(maxWidth: 16)
+                if redactionReasons.contains(.privacy) {
+                    Text("--")
+                } else {
+                    Text("\(energy.dietary)")
+                        
+                }
+            }
+            
+            HStack {
+                Image(systemName: "popcorn")
+                    .font(.body)
+                Text("Rest")
+                    .fontWeight(.bold)
+                Spacer()
+                    .frame(maxWidth: 16)
+                if redactionReasons.contains(.privacy) {
+                    Text("--")
+                } else {
+                    Text("\(energy.ingestible)")
+                }
+            }
+        }
+        .containerBackground(for: .widget) {
+            Color.clear
+        }
+    }
+}
 
+// MARK: -
 struct CaloriesWidgetLockScreenView_Previews: PreviewProvider {
     static var energy = Energy(resting: 1500, active: 200, dietary: 4000)
     static var basicNutrition = BasicNutrition(protein: 50, carbohydrates: 200, fatTotal: 30)
@@ -232,6 +297,10 @@ struct CaloriesWidgetLockScreenView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 16.0, *) {
             Group {
+                CalorieLockScreenRectangleView(energy: energy)
+                    .preferredColorScheme(.dark)
+                    .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
+                
                 BasicNutritionLockScreenRectangleView(basicNutrition: basicNutrition)
                     .preferredColorScheme(.dark)
                     .previewContext(WidgetPreviewContext(family: .accessoryRectangular))

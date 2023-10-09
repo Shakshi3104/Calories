@@ -74,13 +74,15 @@ struct CalorieNutritionWidget: Widget {
 
 // MARK: - Lock screen
 // MARK: - Calorie
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct CalorieLockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     @State var entry: CaloriesEntry
     
     var body: some View {
         switch family {
+        case .accessoryRectangular:
+            CalorieLockScreenRectangleView(energy: entry.energy)
         case .accessoryCircular:
             CalorieLockScreenCircularView(energy: entry.energy)
         default:
@@ -89,7 +91,7 @@ struct CalorieLockScreenWidgetEntryView: View {
     }
 }
 
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct CalorieLockScreenWidget: Widget {
     let kind: String = "Calorie Single"
     
@@ -99,12 +101,12 @@ struct CalorieLockScreenWidget: Widget {
         }
         .configurationDisplayName("Calorie")
         .description("See your ingestible energy.")
-        .supportedFamilies([.accessoryCircular])
+        .supportedFamilies([.accessoryCircular, .accessoryRectangular])
     }
 }
 
 // MARK: - Protein
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct ProteinLockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     @State var entry: CaloriesEntry
@@ -119,7 +121,7 @@ struct ProteinLockScreenWidgetEntryView: View {
     }
 }
 
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct ProteinLockScreenWidget: Widget {
     let kind: String = "Protein Single"
     
@@ -127,14 +129,14 @@ struct ProteinLockScreenWidget: Widget {
         StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
             ProteinLockScreenWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calorie")
+        .configurationDisplayName("Protein")
         .description("See your intake protein.")
         .supportedFamilies([.accessoryCircular])
     }
 }
 
 // MARK: - Carbohydrates
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct CarbohydratesLockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     @State var entry: CaloriesEntry
@@ -149,7 +151,7 @@ struct CarbohydratesLockScreenWidgetEntryView: View {
     }
 }
 
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct CarbohydratesLockScreenWidget: Widget {
     let kind: String = "Carbohydrates Single"
     
@@ -157,14 +159,14 @@ struct CarbohydratesLockScreenWidget: Widget {
         StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
             CarbohydratesLockScreenWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calorie")
+        .configurationDisplayName("Carbohydrates")
         .description("See your intake carbohydrates.")
         .supportedFamilies([.accessoryCircular])
     }
 }
 
 // MARK: - Fat
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct FatLockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     @State var entry: CaloriesEntry
@@ -179,7 +181,7 @@ struct FatLockScreenWidgetEntryView: View {
     }
 }
 
-@available(iOSApplicationExtension 16.0, *)
+@available(iOS 16.0, *)
 struct FatLockScreenWidget: Widget {
     let kind: String = "Fat Single"
     
@@ -187,7 +189,7 @@ struct FatLockScreenWidget: Widget {
         StaticConfiguration(kind: kind, provider: CaloriesTimeline()) { entry in
             FatLockScreenWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calorie")
+        .configurationDisplayName("Fat")
         .description("See your intake fat.")
         .supportedFamilies([.accessoryCircular])
     }
