@@ -17,6 +17,6 @@ Calories provides home screen and lock screen widgets.
 
 ## Requirements
 
-- Xcode 13.0+
-- macOS 12.0+
-- iOS 15.0+
+- Xcode 15.0+
+- macOS 14.0+
+- iOS 17.0+
