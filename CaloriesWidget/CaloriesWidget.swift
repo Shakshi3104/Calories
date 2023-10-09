@@ -81,6 +81,8 @@ struct CalorieLockScreenWidgetEntryView: View {
     
     var body: some View {
         switch family {
+        case .accessoryRectangular:
+            CalorieLockScreenRectangleView(energy: entry.energy)
         case .accessoryCircular:
             CalorieLockScreenCircularView(energy: entry.energy)
         default:
@@ -99,7 +101,7 @@ struct CalorieLockScreenWidget: Widget {
         }
         .configurationDisplayName("Calorie")
         .description("See your ingestible energy.")
-        .supportedFamilies([.accessoryCircular])
+        .supportedFamilies([.accessoryCircular, .accessoryRectangular])
     }
 }
 
