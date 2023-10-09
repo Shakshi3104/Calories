@@ -19,8 +19,8 @@ struct CaloriesApp: App {
             ContentView(viewModel: viewModel,
                         basicNutritionGoal: basicNutritionGoal)
         }
-        .onChange(of: scenePhase) { scene in
-            switch scene {
+        .onChange(of: scenePhase, initial: true) {
+            switch scenePhase {
             case .active:
                 print("📲 active")
                 viewModel.updateEnergy()
