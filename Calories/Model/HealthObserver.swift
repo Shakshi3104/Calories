@@ -32,17 +32,17 @@ class HealthObserver {
                                                 intervalComponents: interval)
         query.initialResultsHandler = { query, collection, error in
             guard let statsCollection = collection else {
+                completion(0)
                 return
             }
             
-            statsCollection.enumerateStatistics(from: startDate, to: endDate) { stats, stop in
-                if let quantity = stats.sumQuantity() {
-                    let date = stats.startDate
-                    let value = quantity.doubleValue(for: unit)
-                    print("🍎 date: \(date), \(value) \(unit.unitString)")
-                    
-                    completion(Int(value))
-                }
+            let statistics = statsCollection.statistics(for: startDate)
+            
+            if let quantity = statistics?.sumQuantity() {
+                let value = quantity.doubleValue(for: unit)
+                completion(Int(value))
+            } else {
+                completion(0)
             }
         }
         
