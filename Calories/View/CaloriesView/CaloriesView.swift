@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 // MARK: - CaloriesView
 struct CaloriesView: View {
@@ -29,7 +30,7 @@ struct CaloriesView: View {
                 
                 Section("Nutrition") {
                     NavigationLink {
-                        NutritionDetailView(basicNutrition: viewModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                        NutritionView(basicNutrition: viewModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     } label: {
                         NutritionTopView(basicNutrition: viewModel.basicNutrition, basicNutritionGoal: basicNutritionGoal)
                     }
