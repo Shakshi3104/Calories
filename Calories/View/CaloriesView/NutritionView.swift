@@ -13,19 +13,17 @@ struct NutritionView: View {
     private let textStyle: Font.TextStyle = .body
 
     var body: some View {
-        NavigationView {
-            List {
-                Section("Goal") {
-                    NavigationLink {
-                        NutritionDetailView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
-                    } label: {
-                        NutritionTopView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
-                    }
+        List {
+            Section("Goal") {
+                NavigationLink {
+                    NutritionDetailView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
+                } label: {
+                    NutritionTopView(basicNutrition: basicNutrition, basicNutritionGoal: basicNutritionGoal)
                 }
-                
-                Section("PFCBalance") {
-                    PFCBalanceTopView(basicNutrition: basicNutrition)
-                }
+            }
+            
+            Section("PFCBalance") {
+                PFCBalanceTopView(basicNutrition: basicNutrition)
             }
         }
     }

@@ -8,53 +8,22 @@
 import SwiftUI
 
 struct GoalSettingView: View {
-    @Environment(\.dismiss) private var dismiss
-    
-//    @State private var proteinGoal: Int = BasicNutrition.goal().protein
-//    @State private var carbohydratesGoal: Int = BasicNutrition.goal().carbohydrates
-//    @State private var fatTotalGoal: Int = BasicNutrition.goal().fatTotal
-    
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    GoalField(name: "Protein", value: $basicNutritionGoal.protein,
-                              systemImageName: "circlebadge.2", color: .proteinPink)
-                    GoalField(name: "Carbohydrates", value: $basicNutritionGoal.carbohydrates,
-                              systemImageName: "speedometer", color: .carbohydratesBlue)
-                    GoalField(name: "Fat", value: $basicNutritionGoal.fatTotal,
-                              systemImageName: "scalemass", color: .fatSkyBlue)
-                } header: {
-                    Text("Nutrition Goal")
-                }
-
+        List {
+            Section {
+                GoalField(name: "Protein", value: $basicNutritionGoal.protein,
+                          systemImageName: "circlebadge.2", color: .proteinPink)
+                GoalField(name: "Carbohydrates", value: $basicNutritionGoal.carbohydrates,
+                          systemImageName: "speedometer", color: .carbohydratesBlue)
+                GoalField(name: "Fat", value: $basicNutritionGoal.fatTotal,
+                          systemImageName: "scalemass", color: .fatSkyBlue)
+            } header: {
+                Text("Nutrition Goal")
             }
-            .toolbar {
-//                ToolbarItem(placement: .cancellationAction) {
-//                    Button {
-//                        dismiss()
-//                    } label: {
-//                        Text("Cancel")
-//                    }
-//                }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        // set nutrition goal
-//                        UserDefaults.standard.set(proteinGoal, forKey: PROTEIN_GOAL_KEY_NAME)
-//                        UserDefaults.standard.set(carbohydratesGoal, forKey: CARBOHYDRATES_GOAL_KEY_NAME)
-//                        UserDefaults.standard.set(fatTotalGoal, forKey: FAT_TOTAL_GOAL_KEY_NAME)
-//
-                        dismiss()
-                    } label: {
-                        Text("Done")
-                    }
-
-                }
-            }
+            
         }
     }
 }
