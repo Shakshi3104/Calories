@@ -49,18 +49,6 @@ struct NutritionDetailView: View {
                 .padding()
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    Image(systemName: "gear")
-                }
-            }
-        }
-        .sheet(isPresented: $isPresented) {
-            GoalSettingView(basicNutritionGoal: basicNutritionGoal)
-        }
     }
 }
 

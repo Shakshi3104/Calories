@@ -12,9 +12,16 @@ struct ContentView: View {
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     var body: some View {
-        VStack {
-            CaloriesView(viewModel: viewModel,
-                         basicNutritionGoal: basicNutritionGoal)
+        TabView {
+            CaloriesView(viewModel: viewModel, basicNutritionGoal: basicNutritionGoal)
+                .tabItem {
+                    Label("Summary", systemImage: "flame")
+                }
+            
+            GoalSettingView(basicNutritionGoal: basicNutritionGoal)
+                .tabItem {
+                    Label("Goal", systemImage: "gear")
+                }
         }
     }
 }
