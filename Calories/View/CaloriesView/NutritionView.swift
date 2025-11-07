@@ -22,7 +22,7 @@ struct NutritionView: View {
                 }
             }
             
-            Section("PFCBalance") {
+            Section("PFC Balance") {
                 PFCBalanceTopView(basicNutrition: basicNutrition)
             }
         }
