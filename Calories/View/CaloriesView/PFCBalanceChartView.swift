@@ -76,9 +76,11 @@ struct PFCBalanceTopView: View {
         HStack(spacing: 25) {
             if pfcData.isEmpty {
                 Circle()
-                    .stroke(lineWidth: 10)
+                    .stroke(lineWidth: 8)
                     .foregroundStyle(.gray.opacity(0.3))
                     .frame(width: 36, height: 36)
+                    .padding(.horizontal, 5)
+                
                 HStack(spacing: 10) {
                     HealthValueView(name: "Protein", value: 0, unit: "%", color: .proteinPink)
                     Divider()
@@ -87,6 +89,7 @@ struct PFCBalanceTopView: View {
                     HealthValueView(name: "Carbohydrates", value: 0, unit: "%", color: .carbohydratesBlue)
                 }
                 .padding(.vertical, 15)
+                
             } else {
                 Chart(pfcData) { data in
                     SectorMark(
