@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - CaloriesViewModel
+@MainActor
 final class CaloriesViewModel: ObservableObject {
     // Published
     /// Energy
@@ -68,3 +69,4 @@ extension CaloriesViewModel {
         }
     }
 }
+
