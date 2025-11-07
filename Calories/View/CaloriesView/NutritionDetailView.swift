@@ -43,8 +43,8 @@ struct NutritionDetailView: View {
                 
                 VStack(alignment: .leading, spacing: 20) {
                     BasicNutritionView(name: "Protein", value: basicNutrition.protein, goalValue: basicNutritionGoal.protein, color: .proteinPink)
-                    BasicNutritionView(name: "Carbohydrates", value: basicNutrition.carbohydrates, goalValue: basicNutritionGoal.carbohydrates, color: .carbohydratesBlue)
                     BasicNutritionView(name: "Fat", value: basicNutrition.fatTotal, goalValue: basicNutritionGoal.fatTotal, color: .fatSkyBlue)
+                    BasicNutritionView(name: "Carbohydrates", value: basicNutrition.carbohydrates, goalValue: basicNutritionGoal.carbohydrates, color: .carbohydratesBlue)
                 }
                 .padding()
             }

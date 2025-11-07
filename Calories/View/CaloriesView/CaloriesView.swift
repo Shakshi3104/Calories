@@ -190,11 +190,11 @@ struct NutritionTopView: View {
                 
                 Divider()
                 
-                HealthValueView(name: "Carbohydrates", value: basicNutrition.carbohydrates, unit: "g", color: .carbohydratesBlue)
+                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatSkyBlue)
                 
                 Divider()
                 
-                HealthValueView(name: "Fat", value: basicNutrition.fatTotal, unit: "g", color: .fatSkyBlue)
+                HealthValueView(name: "Carbohydrates", value: basicNutrition.carbohydrates, unit: "g", color: .carbohydratesBlue)
             }
         }
         .padding(.vertical, 15)
