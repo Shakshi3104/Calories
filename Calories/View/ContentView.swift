@@ -13,15 +13,17 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            CaloriesView(viewModel: viewModel, basicNutritionGoal: basicNutritionGoal)
-                .tabItem {
-                    Label("Summary", systemImage: "flame")
-                }
+            Tab("Summary", systemImage: "flame") {
+                CaloriesView(viewModel: viewModel, basicNutritionGoal: basicNutritionGoal)
+            }
             
-            GoalSettingView(basicNutritionGoal: basicNutritionGoal)
-                .tabItem {
-                    Label("Goal", systemImage: "gear")
-                }
+            Tab("Goal", systemImage: "gear") {
+                GoalSettingView(basicNutritionGoal: basicNutritionGoal)
+            }
+            
+//            Tab("Ask AI", systemImage: "sparkles", role: .search) {
+//                EmptyView()
+//            }
         }
     }
 }
