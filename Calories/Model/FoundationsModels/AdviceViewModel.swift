@@ -12,11 +12,31 @@ import FoundationModels
 @MainActor
 class AdviceViewModel: ObservableObject {
     @Published var advice: DailyAdvice?
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
+    
+    func isFoundationModelsAvailable() -> Bool {
+        switch SystemLanguageModel.default.availability {
+        case .available:
+            print("Foundation Models are available.")
+        case .unavailable(.deviceNotEligible):
+            print("Foundation Models are not available on this device.")
+        case .unavailable(.appleIntelligenceNotEnabled):
+            print("Foundation Models are not available: Apple Intelligence is not enabled.")
+        case .unavailable(.modelNotReady):
+            print("Foundation Models are not available: Model is not ready.")
+        @unknown default:
+            print("Foundation Models are not available. (Unknown case)")
+        }
+        
+        return SystemLanguageModel.default.isAvailable
+    }
     
     func generateAdvice(currentNutrition: BasicNutrition, basicNutritionGoal: BasicNutritionGoal) async {
         isLoading = true
-        defer { isLoading = false }
+        defer {
+            print("Generated advice.")
+            isLoading = false
+        }
         
         let instructions = """
         あなたは親切で知識豊富なフィットネス＆栄養コーチです。
@@ -41,9 +61,11 @@ class AdviceViewModel: ObservableObject {
         """
         
         do {
+            print("Generating advice...")
             // Use '.respond(to:generating:)' method for LanguageModelSession.
             let generatedAdvice = try await session.respond(to: prompt, generating: DailyAdvice.self).content
             self.advice = generatedAdvice
+            print("Advice: \(generatedAdvice)")
         } catch {
             print("Can't generate advice: \(error)")
         }

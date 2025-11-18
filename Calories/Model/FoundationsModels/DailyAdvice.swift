@@ -12,7 +12,7 @@ import FoundationModels
 @Generable
 struct DailyAdvice {
     /// Advice about dietary
-    var dietatySuggestion: String
+    var dietarySuggestion: String
     /// Advice about exercise
     var exerciseSuggestion: String
     /// Overall comment

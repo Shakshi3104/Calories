@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 26.0, *)
 struct AdviceView: View {
-    var adviceViewModel: AdviceViewModel
+    @StateObject var adviceViewModel: AdviceViewModel
     var currentNutrition: BasicNutrition
     var basicNutritionGoal: BasicNutritionGoal
     
@@ -19,16 +19,28 @@ struct AdviceView: View {
                 ProgressView {
                     Text("Thinking...")
                 }
-            } else if let advice = adviceViewModel.advice {
-                VStack {
-                    Text("\(advice.dietatySuggestion)")
-                    Text("\(advice.exerciseSuggestion)")
-                    Text("\(advice.generalComment)")
+            } else {
+                if let advice = adviceViewModel.advice {
+                    Section("Dietary") {
+                        Text("\(advice.dietarySuggestion)")
+                    }
+                    
+                    Section("Exercise") {
+                        Text("\(advice.exerciseSuggestion)")
+                    }
+                    
+                    Section {
+                        Text("\(advice.generalComment)")
+                    }
+                } else {
+                    Text("Unable to generate advice. Please try again later.")
                 }
             }
         }
         .task {
-            await adviceViewModel.generateAdvice(currentNutrition: currentNutrition, basicNutritionGoal: basicNutritionGoal)
+            if adviceViewModel.isFoundationModelsAvailable() {
+                await adviceViewModel.generateAdvice(currentNutrition: currentNutrition, basicNutritionGoal: basicNutritionGoal)
+            }
         }
     }
 }
