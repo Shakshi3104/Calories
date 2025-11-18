@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 26.0, *)
 struct ContentView: View {
     @StateObject var viewModel: CaloriesViewModel
     @StateObject var basicNutritionGoal: BasicNutritionGoal
@@ -21,9 +22,12 @@ struct ContentView: View {
                 GoalSettingView(basicNutritionGoal: basicNutritionGoal)
             }
             
-//            Tab("Ask AI", systemImage: "sparkles", role: .search) {
-//                EmptyView()
-//            }
+            if #available(iOS 26, *) {
+                Tab("Ask AI", systemImage: "sparkles", role: .search) {
+                    AdviceView(adviceViewModel: AdviceViewModel(), currentNutrition: viewModel.basicNutrition,
+                    basicNutritionGoal: basicNutritionGoal)
+                }
+            }
         }
     }
 }
