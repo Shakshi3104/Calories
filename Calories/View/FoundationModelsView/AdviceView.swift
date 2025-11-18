@@ -67,6 +67,23 @@ struct AdviceView: View {
                 }
                 .listRowBackground(Color.clear)
             } else {
+                Section {
+                    VStack {
+                        // TODO: Add walking step or active energy
+                        
+                        HStack(spacing: 10) {
+                            HealthValueView(name: "Protein", value: currentNutrition.protein, unit: "g", color: .proteinPink)
+                            
+                            Divider()
+                            
+                            HealthValueView(name: "Fat", value: currentNutrition.fatTotal, unit: "g", color: .fatSkyBlue)
+                            
+                            Divider()
+                            
+                            HealthValueView(name: "Carbohydrates", value: currentNutrition.carbohydrates, unit: "g", color: .carbohydratesBlue)
+                        }
+                    }
+                }
                 if let advice = adviceViewModel.advice {
                     Section {
                         Text(advice.generalComment)
