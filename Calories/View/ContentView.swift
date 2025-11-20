@@ -7,21 +7,27 @@
 
 import SwiftUI
 
+@available(iOS 26.0, *)
 struct ContentView: View {
     @StateObject var viewModel: CaloriesViewModel
     @StateObject var basicNutritionGoal: BasicNutritionGoal
     
     var body: some View {
         TabView {
-            CaloriesView(viewModel: viewModel, basicNutritionGoal: basicNutritionGoal)
-                .tabItem {
-                    Label("Summary", systemImage: "flame")
-                }
+            Tab("Summary", systemImage: "flame") {
+                CaloriesView(viewModel: viewModel, basicNutritionGoal: basicNutritionGoal)
+            }
             
-            GoalSettingView(basicNutritionGoal: basicNutritionGoal)
-                .tabItem {
-                    Label("Goal", systemImage: "gear")
+            Tab("Goal", systemImage: "gear") {
+                GoalSettingView(basicNutritionGoal: basicNutritionGoal)
+            }
+            
+            if #available(iOS 26, *) {
+                Tab("Ask AI", systemImage: "sparkles", role: .search) {
+                    AdviceView(adviceViewModel: AdviceViewModel(), currentNutrition: viewModel.basicNutrition,
+                    basicNutritionGoal: basicNutritionGoal)
                 }
+            }
         }
     }
 }

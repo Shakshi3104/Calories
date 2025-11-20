@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE10FAE92EC7504E007A6A39 /* DailyAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAE82EC7504E007A6A39 /* DailyAdvice.swift */; };
+		CE10FAEA2EC7504E007A6A39 /* DailyAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAE82EC7504E007A6A39 /* DailyAdvice.swift */; };
+		CE10FAEC2EC7511D007A6A39 /* AdviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAEB2EC7511D007A6A39 /* AdviceViewModel.swift */; };
+		CE10FAED2EC7511D007A6A39 /* AdviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAEB2EC7511D007A6A39 /* AdviceViewModel.swift */; };
+		CE10FAF02EC75416007A6A39 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAEF2EC75416007A6A39 /* AdviceView.swift */; };
+		CE10FAF12EC75416007A6A39 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10FAEF2EC75416007A6A39 /* AdviceView.swift */; };
 		CE3145812EBCC8C200BEC168 /* HealthValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E09BA27C32D73008D83B9 /* HealthValueView.swift */; };
 		CE4F92262854AB6D007187E7 /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92252854AB6D007187E7 /* RingView.swift */; };
 		CE4F92282854B299007187E7 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F92272854B299007187E7 /* Nutrition.swift */; };
@@ -68,6 +74,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE10FAE82EC7504E007A6A39 /* DailyAdvice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAdvice.swift; sourceTree = "<group>"; };
+		CE10FAEB2EC7511D007A6A39 /* AdviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewModel.swift; sourceTree = "<group>"; };
+		CE10FAEF2EC75416007A6A39 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		CE10FAF22ECF1E7D007A6A39 /* screenshots_v5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots_v5.png; sourceTree = "<group>"; };
 		CE4F92252854AB6D007187E7 /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		CE4F92272854B299007187E7 /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
 		CE5127A9292E23EE0041596A /* CaloriesWidgetLockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetLockScreenView.swift; sourceTree = "<group>"; };
@@ -126,6 +136,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE10FAE72EC74FC2007A6A39 /* FoundationsModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE10FAE82EC7504E007A6A39 /* DailyAdvice.swift */,
+				CE10FAEB2EC7511D007A6A39 /* AdviceViewModel.swift */,
+			);
+			path = FoundationsModels;
+			sourceTree = "<group>";
+		};
+		CE10FAEE2EC753F9007A6A39 /* FoundationModelsView */ = {
+			isa = PBXGroup;
+			children = (
+				CE10FAEF2EC75416007A6A39 /* AdviceView.swift */,
+			);
+			path = FoundationModelsView;
+			sourceTree = "<group>";
+		};
 		CE31457F2EBCC73F00BEC168 /* UtilsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +181,7 @@
 			children = (
 				CE7FFAE628AF897D00E51164 /* icon_v3.png */,
 				CE7FFAE728AF8A2700E51164 /* screenshots_v3.png */,
+				CE10FAF22ECF1E7D007A6A39 /* screenshots_v5.png */,
 				CE5127AC292E46470041596A /* screenshots_widget.png */,
 			);
 			path = materials;
@@ -228,6 +256,7 @@
 		CE6E09BC27C3317B008D83B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE10FAEE2EC753F9007A6A39 /* FoundationModelsView */,
 				CE3145802EBCC76000BEC168 /* CaloriesView */,
 				CE31457F2EBCC73F00BEC168 /* UtilsView */,
 				CE6E099227C32A77008D83B9 /* ContentView.swift */,
@@ -238,6 +267,7 @@
 		CE6E09BD27C33184008D83B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE10FAE72EC74FC2007A6A39 /* FoundationsModels */,
 				CE6E09BE27C33198008D83B9 /* Energy.swift */,
 				CE4F92272854B299007187E7 /* Nutrition.swift */,
 				CE6E09C027C34C0A008D83B9 /* HealthObserver.swift */,
@@ -348,6 +378,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE78E82D2855A224001DE399 /* CaloriesView.swift in Sources */,
+				CE10FAED2EC7511D007A6A39 /* AdviceViewModel.swift in Sources */,
+				CE10FAF02EC75416007A6A39 /* AdviceView.swift in Sources */,
 				CE78E82F2855EA00001DE399 /* CalorieDetailView.swift in Sources */,
 				CE6E099327C32A77008D83B9 /* ContentView.swift in Sources */,
 				CE82CE3C27C47B6B001208D1 /* Color+Extension.swift in Sources */,
@@ -358,6 +390,7 @@
 				CE6E09BF27C33198008D83B9 /* Energy.swift in Sources */,
 				CE60E46D2EBCC18E0037D72C /* NutritionView.swift in Sources */,
 				CE6E09C127C34C0A008D83B9 /* HealthObserver.swift in Sources */,
+				CE10FAEA2EC7504E007A6A39 /* DailyAdvice.swift in Sources */,
 				CE6E099127C32A77008D83B9 /* CaloriesApp.swift in Sources */,
 				CE4F92262854AB6D007187E7 /* RingView.swift in Sources */,
 				CE4F92282854B299007187E7 /* Nutrition.swift in Sources */,
@@ -371,8 +404,11 @@
 			files = (
 				CE5127AB292E2DE90041596A /* CaloriesWidgetLockScreenView.swift in Sources */,
 				CE95414B27C3825A00DEB186 /* CaloriesWidgetView.swift in Sources */,
+				CE10FAEC2EC7511D007A6A39 /* AdviceViewModel.swift in Sources */,
 				CE82CE3D27C47BC7001208D1 /* Color+Extension.swift in Sources */,
+				CE10FAE92EC7504E007A6A39 /* DailyAdvice.swift in Sources */,
 				CE4F92292854B299007187E7 /* Nutrition.swift in Sources */,
+				CE10FAF12EC75416007A6A39 /* AdviceView.swift in Sources */,
 				CE6E09AA27C32A9C008D83B9 /* CaloriesWidget.swift in Sources */,
 				CE3145812EBCC8C200BEC168 /* HealthValueView.swift in Sources */,
 				CE6E09C727C37F4A008D83B9 /* Energy.swift in Sources */,
@@ -536,12 +572,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.2;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -572,12 +608,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.2;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
