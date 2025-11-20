@@ -77,6 +77,7 @@
 		CE10FAE82EC7504E007A6A39 /* DailyAdvice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAdvice.swift; sourceTree = "<group>"; };
 		CE10FAEB2EC7511D007A6A39 /* AdviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewModel.swift; sourceTree = "<group>"; };
 		CE10FAEF2EC75416007A6A39 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		CE10FAF22ECF1E7D007A6A39 /* screenshots_v5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshots_v5.png; sourceTree = "<group>"; };
 		CE4F92252854AB6D007187E7 /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		CE4F92272854B299007187E7 /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
 		CE5127A9292E23EE0041596A /* CaloriesWidgetLockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesWidgetLockScreenView.swift; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 			children = (
 				CE7FFAE628AF897D00E51164 /* icon_v3.png */,
 				CE7FFAE728AF8A2700E51164 /* screenshots_v3.png */,
+				CE10FAF22ECF1E7D007A6A39 /* screenshots_v5.png */,
 				CE5127AC292E46470041596A /* screenshots_widget.png */,
 			);
 			path = materials;
@@ -575,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.2;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -611,7 +613,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.2;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shakshi.Calories;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
